@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.rainbow.mall.common.datasource.config.MybatisPlusConfig

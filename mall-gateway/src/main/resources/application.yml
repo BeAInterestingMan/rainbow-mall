@@ -1,0 +1,42 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: raimbow-mall-gateway
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowed-headers: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+              - DELETE
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: mall-cms
+          uri: lb://raimbow-mall-cms
+          predicates:
+            - Path=/mall_cms/**
+          filters:
+            - StripPrefix=1
+
+        - id: mall-product
+          uri: lb://mall-product
+          predicates:
+            - Path=/mall_product/**
+          filters:
+            - StripPrefix=1

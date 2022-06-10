@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.rainbow.mall.common.redis.config.RedisAutoConfigure,\
+com.rainbow.mall.common.redis.aspect.CacheAspect
