@@ -34,9 +34,9 @@ spring:
           filters:
             - StripPrefix=1
 
-        - id: mall-product
-          uri: lb://mall-product
+        - id: mall-goods
+          uri: lb://raimbow-mall-goods
           predicates:
-            - Path=/mall_product/**
+            - Path=/mall_goods/**
           filters:
             - StripPrefix=1
