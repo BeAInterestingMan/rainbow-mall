@@ -31,7 +31,7 @@ public class CategoryBuyerController {
     @ApiOperation(value = "获取商品分类列表")
     @ApiImplicitParam(name = "parentId", value = "上级分类ID，全部分类为：0", required = true, dataType = "Long", paramType = "path")
     @GetMapping(value = "/get/{parentId}")
-    public Result<List<BuyerCategoryVO>> list(@NotBlank(message = "分类ID不能为空") @PathVariable String parentId) {
+    public Result<List<BuyerCategoryVO>> queryCategoryList(@NotBlank(message = "分类ID不能为空") @PathVariable String parentId) {
         List<BuyerCategoryDTO> buyerCategoryDTOS = categoryService.queryAllCategory(parentId);
         List<BuyerCategoryVO> buyerCategoryVOS = categoryConvert.convertBuyerCategoryVOList(buyerCategoryDTOS);
         return Result.success(buyerCategoryVOS);
