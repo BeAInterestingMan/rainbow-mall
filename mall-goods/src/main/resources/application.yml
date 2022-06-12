@@ -32,3 +32,7 @@ mall:
     description: mall商品模块测试文档
     contact: melo-lh
     version: 1.0
+
+logging:
+  level:
+    com.rainbow.mall.goods.mapper: debug

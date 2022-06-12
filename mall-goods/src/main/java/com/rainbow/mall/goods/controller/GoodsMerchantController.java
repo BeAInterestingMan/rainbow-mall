@@ -3,27 +3,39 @@ package com.rainbow.mall.goods.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.rainbow.mall.common.core.dto.base.Result;
+import com.rainbow.mall.goods.convert.GoodsConvert;
+import com.rainbow.mall.goods.pojo.dto.service.GoodsCreateDTO;
+import com.rainbow.mall.goods.pojo.request.GoodsCreateRequest;
 import com.rainbow.mall.goods.pojo.vo.BuyerGoodVO;
 import com.rainbow.mall.goods.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
-@Api(tags = "买家端-商品接口")
+@Api(tags = "pc后台商家端-商品接口")
 @RestController
-@RequestMapping("/goods/goods")
-public class GoodsBuyerController {
+@RequestMapping("/store/goods/goods")
+public class GoodsMerchantController {
 
-    /**
-     * 商品
-     */
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private GoodsConvert goodsConvert;
+
+
+    @ApiOperation(value = "新增商品")
+    @PostMapping(value = "/create")
+    public Result<Void> save(@Valid @RequestBody GoodsCreateRequest request) {
+        GoodsCreateDTO goodsCreateDTO = goodsConvert.convertToGoodsCreateDTO(request);
+        goodsService.createGoods(goodsCreateDTO);
+        return Result.success();
+    }
 
     @ApiOperation(value = "从ES中获取商品信息")
     @GetMapping("/es")

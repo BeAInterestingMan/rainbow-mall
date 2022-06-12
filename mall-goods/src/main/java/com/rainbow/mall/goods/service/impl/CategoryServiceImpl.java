@@ -2,8 +2,12 @@ package com.rainbow.mall.goods.service.impl;
 
 import com.google.common.collect.Lists;
 import com.rainbow.mall.goods.convert.CategoryConvert;
+import com.rainbow.mall.goods.enums.ResultCode;
+import com.rainbow.mall.goods.exception.GoodsServiceException;
 import com.rainbow.mall.goods.pojo.dto.base.CategoryBaseDTO;
 import com.rainbow.mall.goods.pojo.dto.service.BuyerCategoryDTO;
+import com.rainbow.mall.goods.pojo.dto.service.CategoryAddDTO;
+import com.rainbow.mall.goods.pojo.dto.service.CategoryUpdateDTO;
 import com.rainbow.mall.goods.repository.CategoryRepository;
 import com.rainbow.mall.goods.service.CategoryService;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +40,29 @@ public class CategoryServiceImpl  implements CategoryService {
                     buyerCategoryDTO.setChildren(childrenCategoryBaseDTOS);
                     return buyerCategoryDTO;
                 }).collect(Collectors.toList());
-        List<BuyerCategoryDTO> buyerCategoryDTOS = categoryConvert.convertBuyerCategoryDTOList(baseDTOS);
-        return buyerCategoryDTOS;
+        return categoryConvert.convertBuyerCategoryDTOList(baseDTOS);
+    }
+
+    @Override
+    public void addCategoryList(CategoryAddDTO categoryAddDTO) {
+        if (!"0".equals(categoryAddDTO.getParentId())) {
+            CategoryBaseDTO  categoryBaseDTO =  categoryRepository.getById(categoryAddDTO.getParentId());
+            if(Objects.isNull(categoryBaseDTO)){
+                throw new GoodsServiceException(ResultCode.CATEGORY_PARENT_NOT_EXIST);
+            }
+        }
+        CategoryBaseDTO categoryBaseDTO = categoryConvert.convertCategoryBaseDTO(categoryAddDTO);
+        categoryRepository.insert(categoryBaseDTO);
+    }
+
+    @Override
+    public void updateCategoryList(CategoryUpdateDTO categoryUpdateDTO) {
+        CategoryBaseDTO  categoryBaseDTO =  categoryRepository.getById(categoryUpdateDTO.getId());
+        if(Objects.isNull(categoryBaseDTO)){
+            throw new GoodsServiceException(ResultCode.CATEGORY_NOT_EXIST);
+        }
+        CategoryBaseDTO updateCategoryBaseDTO = categoryConvert.convertCategoryBaseDTO(categoryUpdateDTO);
+        categoryRepository.update(updateCategoryBaseDTO);
     }
 
     /**
@@ -49,13 +74,12 @@ public class CategoryServiceImpl  implements CategoryService {
      * @return java.util.List<com.rainbow.mall.goods.pojo.dto.base.BuyerCategoryBaseDTO>
      */
     private List<BuyerCategoryDTO> getChildren(CategoryBaseDTO currentCategory, List<CategoryBaseDTO> originCategoryBaseDTOS) {
-        List<BuyerCategoryDTO> baseDTOS = originCategoryBaseDTOS.stream().filter(categoryBaseDTO -> Objects.equals(String.valueOf(currentCategory.getId()), categoryBaseDTO.getParentId()))
+        return  originCategoryBaseDTOS.stream().filter(categoryBaseDTO -> Objects.equals(String.valueOf(currentCategory.getId()), categoryBaseDTO.getParentId()))
                 .map(categoryBaseDTO -> {
                     BuyerCategoryDTO buyerCategoryDTO = categoryConvert.convertToBuyerCategoryDTO(categoryBaseDTO);
                     List<BuyerCategoryDTO> children = getChildren(categoryBaseDTO, originCategoryBaseDTOS);
                     buyerCategoryDTO.setChildren(children);
                     return buyerCategoryDTO;
                 }).collect(Collectors.toList());
-        return baseDTOS;
     }
 }

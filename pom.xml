@@ -41,6 +41,7 @@
         <lang3.version>3.5</lang3.version>
         <knife4j.version>2.0.2</knife4j.version>
         <rocketmq.version>2.1.0</rocketmq.version>
+        <hutool.version>5.7.5</hutool.version>
     </properties>
 
 
@@ -128,6 +129,13 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+
+            <!--糊涂工具包全家桶 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

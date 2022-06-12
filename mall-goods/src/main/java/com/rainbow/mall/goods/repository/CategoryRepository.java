@@ -5,10 +5,12 @@ import com.rainbow.mall.goods.convert.CategoryConvert;
 import com.rainbow.mall.goods.entity.Category;
 import com.rainbow.mall.goods.mapper.CategoryMapper;
 import com.rainbow.mall.goods.pojo.dto.base.CategoryBaseDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *  @Description  
@@ -29,5 +31,32 @@ public class  CategoryRepository {
         queryWrapper.eq(Category::getDeleteFlag, false);
         List<Category> categories = categoryMapper.selectList(queryWrapper);
         return categoryConvert.convertCategoryBaseDTOList(categories);
+    }
+
+    public CategoryBaseDTO getById(String categoryId) {
+        if(StringUtils.isBlank(categoryId)){
+            return null;
+        }
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getId,categoryId)
+                    .eq(Category::getDeleteFlag, false);
+        Category category = categoryMapper.selectOne(queryWrapper);
+        return categoryConvert.convertCategoryBaseDTO(category);
+    }
+
+    public void insert(CategoryBaseDTO categoryBaseDTO) {
+        Category category = categoryConvert.convertTOCategory(categoryBaseDTO);
+        if(Objects.isNull(category)){
+            return;
+        }
+        categoryMapper.insert(category);
+    }
+
+    public void update(CategoryBaseDTO updateCategoryBaseDTO) {
+        Category category = categoryConvert.convertTOCategory(updateCategoryBaseDTO);
+        if(Objects.isNull(category)){
+            return;
+        }
+        categoryMapper.updateById(category);
     }
 }
