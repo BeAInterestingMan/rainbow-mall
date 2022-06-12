@@ -74,7 +74,7 @@ public class CategoryServiceImpl  implements CategoryService {
      * @return java.util.List<com.rainbow.mall.goods.pojo.dto.base.BuyerCategoryBaseDTO>
      */
     private List<BuyerCategoryDTO> getChildren(CategoryBaseDTO currentCategory, List<CategoryBaseDTO> originCategoryBaseDTOS) {
-        return  originCategoryBaseDTOS.stream().filter(categoryBaseDTO -> Objects.equals(String.valueOf(currentCategory.getId()), categoryBaseDTO.getParentId()))
+        return originCategoryBaseDTOS.stream().filter(categoryBaseDTO -> Objects.equals(currentCategory.getId(), String.valueOf(categoryBaseDTO.getParentId())))
                 .map(categoryBaseDTO -> {
                     BuyerCategoryDTO buyerCategoryDTO = categoryConvert.convertToBuyerCategoryDTO(categoryBaseDTO);
                     List<BuyerCategoryDTO> children = getChildren(categoryBaseDTO, originCategoryBaseDTOS);

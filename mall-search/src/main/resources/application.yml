@@ -1,0 +1,27 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: mall-goods-search
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+mall:
+  swagger:
+    enable: true
+    basePackage: com.rainbow.mall.search.controller
+    title: mall-goods-search
+    description: mall商品搜索模块接口文档
+    contact: melo-lh
+    version: 1.0
+
+
+elasticsearch:
+  config:
+    host: localhost
+    port: 9200

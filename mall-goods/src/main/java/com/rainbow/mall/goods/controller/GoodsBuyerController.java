@@ -2,6 +2,7 @@ package com.rainbow.mall.goods.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.rainbow.mall.common.core.dto.base.Result;
 import com.rainbow.mall.goods.pojo.vo.BuyerGoodVO;
 import com.rainbow.mall.goods.service.GoodsService;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @Api(tags = "买家端-商品接口")
@@ -123,4 +126,10 @@ String json = "{\n" +
     }
 
 
+
+    @ApiOperation(value = "获取搜索热词")
+    @GetMapping("/hot-words")
+    public Result<List<String>> getGoodsHotWords(Integer count) {
+        return Result.success(Lists.newArrayList("测试11","测试2222"));
+    }
 }

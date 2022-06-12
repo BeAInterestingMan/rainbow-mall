@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: raimbow-mall-cms
+    name: mall-cms
 
   cloud:
     nacos:
@@ -29,6 +29,6 @@ mall:
     enable: true
     basePackage: com.rainbow.mall.cms.controller
     title: mall-cms
-    description: mall内容管理测试文档
+    description: mall内容管理接口文档
     contact: melo-lh
     version: 1.0

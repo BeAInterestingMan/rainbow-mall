@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: raimbow-mall-gateway
+    name: mall-gateway
 
   cloud:
     nacos:
@@ -28,15 +28,22 @@ spring:
           lower-case-service-id: true
       routes:
         - id: mall-cms
-          uri: lb://raimbow-mall-cms
+          uri: lb://mall-cms
           predicates:
             - Path=/mall_cms/**
           filters:
             - StripPrefix=1
 
         - id: mall-goods
-          uri: lb://raimbow-mall-goods
+          uri: lb://mall-goods
           predicates:
             - Path=/mall_goods/**
+          filters:
+            - StripPrefix=1
+
+        - id: mall-goods-search
+          uri: lb://mall-goods-search
+          predicates:
+            - Path=/mall_goods_search/**
           filters:
             - StripPrefix=1

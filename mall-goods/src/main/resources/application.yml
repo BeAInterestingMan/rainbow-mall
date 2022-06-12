@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: raimbow-mall-goods
+    name: mall-goods
 
   cloud:
     nacos:
@@ -29,7 +29,7 @@ mall:
     enable: true
     basePackage: com.rainbow.mall.goods.controller
     title: mall-goods
-    description: mall商品模块测试文档
+    description: mall商品模块接口文档
     contact: melo-lh
     version: 1.0
 
