@@ -1,9 +1,10 @@
 package com.rainbow.mall.goods.service.adapt.dto;
 
 import com.rainbow.mall.search.api.pojo.dto.EsGoodsAttributeDTO;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 public class GoodsSkuSearchAdaptDTO {
 
     /**商品skuId*/

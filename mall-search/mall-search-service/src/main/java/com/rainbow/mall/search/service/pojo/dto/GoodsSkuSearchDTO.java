@@ -10,6 +10,9 @@ import java.util.List;
 @FieldNameConstants
 public class GoodsSkuSearchDTO {
 
+    @ApiModelProperty(value = "关键字")
+    private String keyword;
+
     private String categoryId;
 
     /**品牌,可以多选 品牌*/

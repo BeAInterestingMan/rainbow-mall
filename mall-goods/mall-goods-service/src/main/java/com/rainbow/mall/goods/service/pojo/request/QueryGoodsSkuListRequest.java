@@ -4,9 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @ApiModel("商品搜索入参")
@@ -38,9 +36,6 @@ public class QueryGoodsSkuListRequest {
 
     @ApiModelProperty(value = "商家分组id，搜索店铺商品的时候使用")
     private String storeCatId;
-
-    @ApiModelProperty(hidden = true)
-    private Map<String, List<String>> notShowCol = new HashMap<>();
 
     @ApiModelProperty("当前商品skuId,根据当前浏览的商品信息来给用户推荐可能喜欢的商品")
     private String currentGoodsId;

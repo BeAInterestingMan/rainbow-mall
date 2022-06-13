@@ -28,6 +28,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -78,8 +79,11 @@ public class GoodsServiceImpl  implements GoodsService {
     @Override
     public Page<List<QuerySkuListGoodsBaseDTO>> querySkuList(QueryGoodsSkuListDTO dto) {
         GoodsSkuSearchAdaptParamDTO paramDTO =  goodsConvert.convertToGoodsSkuSearchAdaptParamDTO(dto);
+        // 1.查询es获取商品sku idList  再从mysql捞取实时数据  mysql数据最准确
         Page<List<GoodsSkuSearchAdaptDTO>> page = goodsSearchAdapt.goodsSearch(paramDTO);
-        return null;
+        List<String> skuIdList = page.getData().stream().map(GoodsSkuSearchAdaptDTO::getId).collect(Collectors.toList());
+
+        return goodsConvert.convertToGoodsSkuSearchAdaptDTOPage(page);
     }
 
     private void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {

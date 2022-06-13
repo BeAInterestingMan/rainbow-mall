@@ -1,6 +1,6 @@
 package com.rainbow.mall.goods.service.pojo.response;
 
-import com.rainbow.mall.search.service.pojo.dto.EsGoodsAttributeDTO;
+import com.rainbow.mall.search.api.pojo.dto.EsGoodsAttributeDTO;
 import lombok.Data;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.rainbow.mall.goods.service.pojo.dto.service;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.FieldNameConstants;
 
@@ -24,18 +23,16 @@ public class QueryGoodsSkuListDTO {
    /**属性:参数名_参数值@参数名_参数值*/
     private String prop;
 
-    @ApiModelProperty(value = "规格项列表")
+    /**规格项列表*/
     private List<String> nameIds;
 
-    @ApiModelProperty(value = "卖家id，搜索店铺商品的时候使用")
+   /**卖家id，搜索店铺商品的时候使用*/
     private String storeId;
 
-    @ApiModelProperty(value = "商家分组id，搜索店铺商品的时候使用")
+    /**商家分组id，搜索店铺商品的时候使用*/
     private String storeCatId;
 
     private String sn;
-
-    private String indexName;
 
     private Integer currentPage = 1;
 

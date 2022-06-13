@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,13 +28,13 @@ public class GoodsSearchAdapt {
     @Autowired
     private GoodsConvert goodsConvert;
 
-    public Page<List<GoodsSkuSearchAdaptDTO>> goodsSearch(GoodsSkuSearchAdaptParamDTO request){
+    public Page<List<GoodsSkuSearchAdaptDTO>> goodsSearch(@RequestParam("request") GoodsSkuSearchAdaptParamDTO request){
         log.info("execute goodsSearch info req:{}", JSON.toJSONString(request));
         GoodsSkuSearchRequest skuSearchRequest = goodsConvert.convertToGoodsSkuSearchRequest(request);
         Result<Page<List<GoodsSkuSearchResponse>>> result = goodsSearchFeign.search(skuSearchRequest);
         if(Objects.isNull(result) || !result.isSuccess()){
             log.error("execute goodsSearch error req:{},resp:{}", JSON.toJSONString(request),JSON.toJSONString(result));
-            return  null;
+            return  Page.emptyPage(request.getCurrentPage(),request.getPageSize());
         }
         if(Objects.nonNull(result.getResult()) && CollectionUtils.isEmpty(result.getResult().getData())){
             log.warn("execute goodsSearch has empty data req:{}", JSON.toJSONString(request));

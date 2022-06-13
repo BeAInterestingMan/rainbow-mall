@@ -30,9 +30,11 @@ public interface GoodsConvert {
 
     Page<List<QueryGoodsSkuListResponse>> convertToQueryGoodsSkuListResponse(Page<List<QuerySkuListGoodsBaseDTO>> page);
 
-    Page<List<GoodsSkuSearchAdaptDTO>> convertToGoodsSkuSearchAdaptDTOList(Page<List<GoodsSkuSearchResponse>> result);
+    Page<List<GoodsSkuSearchAdaptDTO>> convertToGoodsSkuSearchAdaptDTOList(Page<List<GoodsSkuSearchResponse>> page);
 
     GoodsSkuSearchRequest convertToGoodsSkuSearchRequest(GoodsSkuSearchAdaptParamDTO request);
 
     GoodsSkuSearchAdaptParamDTO convertToGoodsSkuSearchAdaptParamDTO(QueryGoodsSkuListDTO dto);
+
+    Page<List<QuerySkuListGoodsBaseDTO>> convertToGoodsSkuSearchAdaptDTOPage(Page<List<GoodsSkuSearchAdaptDTO>> page);
 }
