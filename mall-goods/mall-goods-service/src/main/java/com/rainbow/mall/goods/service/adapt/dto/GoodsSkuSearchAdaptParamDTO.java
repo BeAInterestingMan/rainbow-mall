@@ -1,4 +1,4 @@
-package com.rainbow.mall.search.service.pojo.request;
+package com.rainbow.mall.goods.service.adapt.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Data
 @ApiModel("商品搜索入参")
-public class GoodsSkuSearchRequest {
+public class GoodsSkuSearchAdaptParamDTO {
 
     @ApiModelProperty(value = "关键字")
     private String keyword;
@@ -46,7 +46,7 @@ public class GoodsSkuSearchRequest {
     private String currentGoodsId;
 
     @ApiModelProperty(value = "页号")
-    private Integer pageNumber = 1;
+    private Integer currentPage = 1;
 
     @ApiModelProperty(value = "页面大小")
     private Integer pageSize = 10;

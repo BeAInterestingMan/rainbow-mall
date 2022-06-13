@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
-@RequestMapping("/goods/goods/")
+@RequestMapping("/search/goods/")
 @Api(tags = "商品搜索")
 @RestController
 public class GoodsSearchController {
@@ -30,7 +30,7 @@ public class GoodsSearchController {
     @Autowired
     private GoodsSkuSearchConvert goodsSkuSearchConvert;
 
-    @GetMapping("es")
+    @GetMapping("list")
     @ApiOperation("通用商品搜索")
     @ApiImplicitParam(name = "request",value = "通用商品搜索入参")
     public Result<Page<List<GoodsSkuSearchResponse>>> search(GoodsSkuSearchRequest request) throws IOException {

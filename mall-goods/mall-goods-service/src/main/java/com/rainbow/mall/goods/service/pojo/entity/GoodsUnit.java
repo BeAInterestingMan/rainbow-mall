@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.service.entity;
+package com.rainbow.mall.goods.service.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -12,12 +12,11 @@ import java.util.Date;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2022-06-09 17:16:35
+ * @date 2022-06-09 17:16:36
  */
 @Data
-@TableName("li_spec_values")
-public class SpecValues implements Serializable {
-	private static final long serialVersionUID = 1L;
+@TableName("li_goods_unit")
+public class GoodsUnit implements Serializable {
 
 	/**
 	 * ID
@@ -33,7 +32,7 @@ public class SpecValues implements Serializable {
 	 */
 	private Date createTime;
 	/**
-	 * 删除标志 true/false 删除/未删除
+	 * 计量单位名称
 	 */
 	private Boolean deleteFlag;
 	/**
@@ -45,12 +44,8 @@ public class SpecValues implements Serializable {
 	 */
 	private Date updateTime;
 	/**
-	 * 规格项ID
+	 * 删除标志 true/false 删除/未删除
 	 */
-	private Long specId;
-	/**
-	 * 规格值名字
-	 */
-	private String specValue;
+	private String name;
 
 }

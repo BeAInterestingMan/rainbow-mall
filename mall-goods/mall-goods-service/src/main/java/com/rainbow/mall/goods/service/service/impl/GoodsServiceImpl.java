@@ -3,6 +3,10 @@ package com.rainbow.mall.goods.service.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.rainbow.mall.common.core.utils.SnowFlakeUtil;
+import com.rainbow.mall.common.entity.entity.base.Page;
+import com.rainbow.mall.goods.service.adapt.GoodsSearchAdapt;
+import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptDTO;
+import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptParamDTO;
 import com.rainbow.mall.goods.service.convert.GoodsConvert;
 import com.rainbow.mall.goods.service.enums.GoodsStatusEnum;
 import com.rainbow.mall.goods.service.enums.GoodsTypeEnum;
@@ -10,6 +14,8 @@ import com.rainbow.mall.goods.service.enums.ResultCode;
 import com.rainbow.mall.goods.service.exception.GoodsServiceException;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
 import com.rainbow.mall.goods.service.repository.GoodsRepository;
 import com.rainbow.mall.goods.service.service.GoodsGalleryService;
 import com.rainbow.mall.goods.service.service.GoodsService;
@@ -42,6 +48,9 @@ public class GoodsServiceImpl  implements GoodsService {
    @Autowired
    private GoodsGalleryService goodsGalleryService;
 
+   @Autowired
+   private GoodsSearchAdapt goodsSearchAdapt;
+
     @Override
     public void createGoods(GoodsCreateDTO goodsCreateDTO) {
       //1.构建数据
@@ -64,6 +73,13 @@ public class GoodsServiceImpl  implements GoodsService {
      if(Objects.equals(Boolean.FALSE,execute)){
           throw new GoodsServiceException(ResultCode.GOODS_ERROR);
      }
+    }
+
+    @Override
+    public Page<List<QuerySkuListGoodsBaseDTO>> querySkuList(QueryGoodsSkuListDTO dto) {
+        GoodsSkuSearchAdaptParamDTO paramDTO =  goodsConvert.convertToGoodsSkuSearchAdaptParamDTO(dto);
+        Page<List<GoodsSkuSearchAdaptDTO>> page = goodsSearchAdapt.goodsSearch(paramDTO);
+        return null;
     }
 
     private void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {

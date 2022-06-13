@@ -2,7 +2,7 @@ package com.rainbow.mall.goods.service.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rainbow.mall.goods.service.convert.CategoryConvert;
-import com.rainbow.mall.goods.service.entity.Category;
+import com.rainbow.mall.goods.service.pojo.entity.Category;
 import com.rainbow.mall.goods.service.mapper.CategoryMapper;
 import com.rainbow.mall.goods.service.pojo.dto.base.CategoryBaseDTO;
 import org.apache.commons.lang3.StringUtils;

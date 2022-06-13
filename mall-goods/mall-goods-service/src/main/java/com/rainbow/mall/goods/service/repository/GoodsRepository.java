@@ -1,7 +1,7 @@
 package com.rainbow.mall.goods.service.repository;
 
 import com.rainbow.mall.goods.service.convert.GoodsConvert;
-import com.rainbow.mall.goods.service.entity.Goods;
+import com.rainbow.mall.goods.service.pojo.entity.Goods;
 import com.rainbow.mall.goods.service.mapper.GoodsMapper;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;

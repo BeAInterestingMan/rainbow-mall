@@ -1,4 +1,4 @@
-package com.rainbow.mall.search.service.pojo.request;
+package com.rainbow.mall.goods.service.pojo.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Data
 @ApiModel("商品搜索入参")
-public class GoodsSkuSearchRequest {
+public class QueryGoodsSkuListRequest {
 
     @ApiModelProperty(value = "关键字")
     private String keyword;
@@ -44,16 +44,4 @@ public class GoodsSkuSearchRequest {
 
     @ApiModelProperty("当前商品skuId,根据当前浏览的商品信息来给用户推荐可能喜欢的商品")
     private String currentGoodsId;
-
-    @ApiModelProperty(value = "页号")
-    private Integer pageNumber = 1;
-
-    @ApiModelProperty(value = "页面大小")
-    private Integer pageSize = 10;
-
-    @ApiModelProperty(value = "排序字段")
-    private String sort;
-
-    @ApiModelProperty(value = "排序方式 asc/desc")
-    private String order;
 }

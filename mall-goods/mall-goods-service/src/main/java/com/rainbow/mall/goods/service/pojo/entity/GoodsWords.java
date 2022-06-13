@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.service.entity;
+package com.rainbow.mall.goods.service.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

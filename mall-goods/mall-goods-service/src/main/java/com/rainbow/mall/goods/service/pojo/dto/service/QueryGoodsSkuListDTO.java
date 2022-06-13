@@ -1,4 +1,4 @@
-package com.rainbow.mall.search.service.pojo.dto;
+package com.rainbow.mall.goods.service.pojo.dto.service;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @FieldNameConstants
-public class GoodsSkuSearchDTO {
+public class QueryGoodsSkuListDTO {
 
     private String categoryId;
 
@@ -35,15 +35,9 @@ public class GoodsSkuSearchDTO {
 
     private String sn;
 
-    @ApiModelProperty(value = "页号")
+    private String indexName;
+
     private Integer currentPage = 1;
 
-    @ApiModelProperty(value = "页面大小")
-    private Integer pageSize = 10;
-
-    @ApiModelProperty(value = "排序字段")
-    private String sort;
-
-    @ApiModelProperty(value = "排序方式 asc/desc")
-    private String order;
+    private Integer pageSize =10;
 }

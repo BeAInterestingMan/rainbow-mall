@@ -2,7 +2,7 @@ package com.rainbow.mall.goods.service.repository;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.rainbow.mall.goods.service.convert.GoodsSkuConvert;
-import com.rainbow.mall.goods.service.entity.GoodsSku;
+import com.rainbow.mall.goods.service.pojo.entity.GoodsSku;
 import com.rainbow.mall.goods.service.mapper.GoodsSkuMapper;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;

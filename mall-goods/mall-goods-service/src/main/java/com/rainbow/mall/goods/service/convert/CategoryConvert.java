@@ -1,6 +1,6 @@
 package com.rainbow.mall.goods.service.convert;
 
-import com.rainbow.mall.goods.service.entity.Category;
+import com.rainbow.mall.goods.service.pojo.entity.Category;
 import com.rainbow.mall.goods.service.pojo.dto.base.CategoryBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.BuyerCategoryDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.CategoryAddDTO;

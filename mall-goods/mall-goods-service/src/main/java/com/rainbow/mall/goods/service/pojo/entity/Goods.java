@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.service.entity;
+package com.rainbow.mall.goods.service.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -8,15 +8,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 
- * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2022-06-09 17:16:36
+ *  @Description 商品
+ *  @author liuhu
+ *  @Date 2022/6/9 17:24
  */
 @Data
-@TableName("li_goods_sku")
-public class GoodsSku implements Serializable {
+@TableName("li_goods")
+public class Goods implements Serializable {
 
 	/**
 	 * ID
@@ -48,10 +46,6 @@ public class GoodsSku implements Serializable {
 	 */
 	private String authMessage;
 	/**
-	 * 大图路径
-	 */
-	private String big;
-	/**
 	 * 品牌ID
 	 */
 	private Long brandId;
@@ -64,25 +58,13 @@ public class GoodsSku implements Serializable {
 	 */
 	private String categoryPath;
 	/**
-	 * 评价数量
+	 * 评论数量
 	 */
 	private Integer commentNum;
 	/**
 	 * 成本价格
 	 */
 	private Double cost;
-	/**
-	 * 运费承担者
-	 */
-	private String freightPayer;
-	/**
-	 * 配送模版ID
-	 */
-	private Long freightTemplateId;
-	/**
-	 * 商品ID
-	 */
-	private Long goodsId;
 	/**
 	 * 商品名称
 	 */
@@ -108,15 +90,11 @@ public class GoodsSku implements Serializable {
 	 */
 	private String authFlag;
 	/**
-	 * 是否是促销商品
-	 */
-	private Boolean promotionFlag;
-	/**
 	 * 上架状态
 	 */
 	private String marketEnable;
 	/**
-	 * 移动端商品详情
+	 * 商品移动端详情
 	 */
 	private String mobileIntro;
 	/**
@@ -127,10 +105,6 @@ public class GoodsSku implements Serializable {
 	 * 商品价格
 	 */
 	private Double price;
-	/**
-	 * 促销价
-	 */
-	private Double promotionPrice;
 	/**
 	 * 库存
 	 */
@@ -160,6 +134,10 @@ public class GoodsSku implements Serializable {
 	 */
 	private String sellingPoint;
 	/**
+	 * 店铺分类
+	 */
+	private String shopCategoryPath;
+	/**
 	 * 小图路径
 	 */
 	private String small;
@@ -168,11 +146,7 @@ public class GoodsSku implements Serializable {
 	 */
 	private String sn;
 	/**
-	 * 规格信息json
-	 */
-	private String specs;
-	/**
-	 * 运费模板id
+	 * 运费模板ID
 	 */
 	private Long templateId;
 	/**
@@ -184,21 +158,21 @@ public class GoodsSku implements Serializable {
 	 */
 	private String underMessage;
 	/**
-	 * 浏览数量
-	 */
-	private Integer viewCount;
-	/**
 	 * 重量
 	 */
 	private Double weight;
 	/**
-	 * 规格信息
-	 */
-	private String simpleSpecs;
-	/**
 	 * 店铺分类路径
 	 */
 	private String storeCategoryPath;
+	/**
+	 * 大图路径
+	 */
+	private String big;
+	/**
+	 * 
+	 */
+	private String params;
 	/**
 	 * 
 	 */

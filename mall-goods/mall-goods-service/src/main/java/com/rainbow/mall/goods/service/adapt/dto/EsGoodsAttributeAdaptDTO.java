@@ -1,7 +1,6 @@
-package com.rainbow.mall.search.api.pojo.dto;
+package com.rainbow.mall.goods.service.adapt.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -9,7 +8,7 @@ import java.io.Serializable;
  * 商品属性索引
  **/
 @Data
-public class EsGoodsAttributeDTO implements Serializable {
+public class EsGoodsAttributeAdaptDTO implements Serializable {
 
 
     /**

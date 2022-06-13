@@ -1,6 +1,6 @@
 package com.rainbow.mall.goods.service.service;
 
-import com.rainbow.mall.goods.service.entity.GoodsGallery;
+import com.rainbow.mall.goods.service.pojo.entity.GoodsGallery;
 
 public interface GoodsGalleryService {
 

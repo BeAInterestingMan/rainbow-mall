@@ -1,17 +1,22 @@
-package com.rainbow.mall.goods.service.entity;
+package com.rainbow.mall.goods.service.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
-
+/**
+ * 
+ * 
+ * @author chenshun
+ * @email sunlightcs@gmail.com
+ * @date 2022-06-09 17:16:35
+ */
 @Data
-@TableName("li_category")
-public class Category implements Serializable {
+@TableName("li_spec_values")
+public class SpecValues implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -40,32 +45,12 @@ public class Category implements Serializable {
 	 */
 	private Date updateTime;
 	/**
-	 * 佣金比例
+	 * 规格项ID
 	 */
-	private BigDecimal commissionRate;
+	private Long specId;
 	/**
-	 * 分类图标
+	 * 规格值名字
 	 */
-	private String image;
-	/**
-	 * 层级
-	 */
-	private Integer level;
-	/**
-	 * 分类名称
-	 */
-	private String name;
-	/**
-	 * 父ID
-	 */
-	private Long parentId;
-	/**
-	 * 排序值
-	 */
-	private Integer sortOrder;
-	/**
-	 * 是否支持频道
-	 */
-	private Boolean supportChannel;
+	private String specValue;
 
 }

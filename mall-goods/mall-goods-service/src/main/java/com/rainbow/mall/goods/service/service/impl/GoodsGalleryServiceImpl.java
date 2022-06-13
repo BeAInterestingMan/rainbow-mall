@@ -1,6 +1,6 @@
 package com.rainbow.mall.goods.service.service.impl;
 
-import com.rainbow.mall.goods.service.entity.GoodsGallery;
+import com.rainbow.mall.goods.service.pojo.entity.GoodsGallery;
 import com.rainbow.mall.goods.service.service.GoodsGalleryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

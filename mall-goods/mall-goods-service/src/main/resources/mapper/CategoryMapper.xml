@@ -4,7 +4,7 @@
 <mapper namespace="com.rainbow.mall.goods.service.mapper.CategoryMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.rainbow.mall.goods.service.entity.Category" id="categoryMap">
+    <resultMap type="com.rainbow.mall.goods.service.pojo.entity.Category" id="categoryMap">
         <result property="id" column="id"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>

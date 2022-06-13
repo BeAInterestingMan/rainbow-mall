@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.service.entity;
+package com.rainbow.mall.goods.service.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,8 +15,8 @@ import java.util.Date;
  * @date 2022-06-09 17:16:36
  */
 @Data
-@TableName("li_goods_unit")
-public class GoodsUnit implements Serializable {
+@TableName("li_goods_collection")
+public class GoodsCollection implements Serializable {
 
 	/**
 	 * ID
@@ -24,28 +24,16 @@ public class GoodsUnit implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * 创建者
-	 */
-	private String createBy;
-	/**
 	 * 创建时间
 	 */
 	private Date createTime;
 	/**
-	 * 计量单位名称
+	 * 会员id
 	 */
-	private Boolean deleteFlag;
+	private Long memberId;
 	/**
-	 * 更新者
+	 * 商品id
 	 */
-	private String updateBy;
-	/**
-	 * 更新时间
-	 */
-	private Date updateTime;
-	/**
-	 * 删除标志 true/false 删除/未删除
-	 */
-	private String name;
+	private Long skuId;
 
 }
