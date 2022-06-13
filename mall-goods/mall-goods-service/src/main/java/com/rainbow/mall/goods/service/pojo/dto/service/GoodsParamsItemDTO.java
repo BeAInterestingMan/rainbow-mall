@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.pojo.dto.service;
+package com.rainbow.mall.goods.service.pojo.dto.service;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

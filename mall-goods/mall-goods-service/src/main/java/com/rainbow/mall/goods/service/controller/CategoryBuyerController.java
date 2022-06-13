@@ -1,10 +1,15 @@
-package com.rainbow.mall.goods.controller;
+package com.rainbow.mall.goods.service.controller;
 
-import com.rainbow.mall.common.core.dto.base.Result;
-import com.rainbow.mall.goods.convert.CategoryConvert;
-import com.rainbow.mall.goods.pojo.dto.service.BuyerCategoryDTO;
-import com.rainbow.mall.goods.pojo.vo.BuyerCategoryVO;
-import com.rainbow.mall.goods.service.CategoryService;
+import com.alibaba.fastjson.JSON;
+import com.rainbow.mall.common.entity.entity.base.Page;
+import com.rainbow.mall.common.entity.entity.base.Result;
+import com.rainbow.mall.goods.service.convert.CategoryConvert;
+import com.rainbow.mall.goods.service.pojo.dto.service.BuyerCategoryDTO;
+import com.rainbow.mall.goods.service.pojo.vo.BuyerCategoryVO;
+import com.rainbow.mall.goods.service.service.CategoryService;
+import com.rainbow.mall.search.api.feign.GoodsSearchFeign;
+import com.rainbow.mall.search.api.pojo.request.GoodsSkuSearchRequest;
+import com.rainbow.mall.search.api.pojo.response.GoodsSkuSearchResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +33,9 @@ public class CategoryBuyerController {
     @Autowired
     private CategoryConvert categoryConvert;
 
+    @Autowired
+    private GoodsSearchFeign goodsSearchFeign;
+
     @ApiOperation(value = "获取商品分类列表")
     @ApiImplicitParam(name = "parentId", value = "上级分类ID，全部分类为：0", required = true, dataType = "Long", paramType = "path")
     @GetMapping(value = "/get/{parentId}")
@@ -35,5 +43,15 @@ public class CategoryBuyerController {
         List<BuyerCategoryDTO> buyerCategoryDTOS = categoryService.queryAllCategory(parentId);
         List<BuyerCategoryVO> buyerCategoryVOS = categoryConvert.convertBuyerCategoryVOList(buyerCategoryDTOS);
         return Result.success(buyerCategoryVOS);
+    }
+
+    @ApiOperation(value = "获取商品分类列表")
+    @GetMapping(value = "/test")
+    public Result<Void> queryGoodList() {
+        GoodsSkuSearchRequest request = new GoodsSkuSearchRequest();
+        request.setCategoryId("111111");
+        Result<Page<List<GoodsSkuSearchResponse>>> search = goodsSearchFeign.search(request);
+        System.out.println( JSON.toJSONString(search));
+        return Result.success();
     }
 }

@@ -1,7 +1,7 @@
-package com.rainbow.mall.goods.handler;
+package com.rainbow.mall.goods.service.handler;
 
-import com.rainbow.mall.common.core.dto.base.Result;
-import com.rainbow.mall.goods.exception.GoodsServiceException;
+import com.rainbow.mall.common.entity.entity.base.Result;
+import com.rainbow.mall.goods.service.exception.GoodsServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

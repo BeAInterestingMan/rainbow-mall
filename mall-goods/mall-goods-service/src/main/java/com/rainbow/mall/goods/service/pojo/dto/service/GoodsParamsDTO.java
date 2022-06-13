@@ -1,4 +1,4 @@
-package com.rainbow.mall.goods.pojo.dto.service;
+package com.rainbow.mall.goods.service.pojo.dto.service;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
