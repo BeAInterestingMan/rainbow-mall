@@ -7,7 +7,7 @@ import com.rainbow.mall.cms.pojo.dto.request.IndexPageDataDTO;
 import com.rainbow.mall.cms.pojo.dto.service.PageDataDTO;
 import com.rainbow.mall.cms.pojo.vo.PageDataVO;
 import com.rainbow.mall.cms.service.PageDataService;
-import com.rainbow.mall.common.core.dto.base.Result;
+import com.rainbow.mall.common.entity.entity.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

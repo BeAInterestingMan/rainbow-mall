@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.goods.service.mapper.GoodsGalleryMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.goods.service.entity.GoodsGallery" id="goodsGalleryMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="original" column="original"/>
+        <result property="small" column="small"/>
+        <result property="sort" column="sort"/>
+        <result property="thumbnail" column="thumbnail"/>
+    </resultMap>
+
+
+</mapper>

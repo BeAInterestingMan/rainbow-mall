@@ -17,6 +17,7 @@
         <module>mall-common-core</module>
         <module>mall-common-doc-starter</module>
         <module>rainbow-common-datasource-starter</module>
+        <module>mall-common-entity</module>
     </modules>
 
     <properties>

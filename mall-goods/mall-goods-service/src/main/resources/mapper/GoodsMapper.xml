@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.goods.service.mapper.GoodsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.goods.service.entity.Goods" id="goodsMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="authMessage" column="auth_message"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="buyCount" column="buy_count"/>
+        <result property="categoryPath" column="category_path"/>
+        <result property="commentNum" column="comment_num"/>
+        <result property="cost" column="cost"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsUnit" column="goods_unit"/>
+        <result property="goodsVideo" column="goods_video"/>
+        <result property="grade" column="grade"/>
+        <result property="intro" column="intro"/>
+        <result property="authFlag" column="auth_flag"/>
+        <result property="marketEnable" column="market_enable"/>
+        <result property="mobileIntro" column="mobile_intro"/>
+        <result property="original" column="original"/>
+        <result property="price" column="price"/>
+        <result property="quantity" column="quantity"/>
+        <result property="recommend" column="recommend"/>
+        <result property="salesModel" column="sales_model"/>
+        <result property="selfOperated" column="self_operated"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="sellingPoint" column="selling_point"/>
+        <result property="shopCategoryPath" column="shop_category_path"/>
+        <result property="small" column="small"/>
+        <result property="sn" column="sn"/>
+        <result property="templateId" column="template_id"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="underMessage" column="under_message"/>
+        <result property="weight" column="weight"/>
+        <result property="storeCategoryPath" column="store_category_path"/>
+        <result property="big" column="big"/>
+        <result property="params" column="params"/>
+        <result property="goodsType" column="goods_type"/>
+    </resultMap>
+
+
+</mapper>
