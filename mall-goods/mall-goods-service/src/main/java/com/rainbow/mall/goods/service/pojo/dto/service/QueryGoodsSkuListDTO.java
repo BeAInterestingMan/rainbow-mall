@@ -1,12 +1,10 @@
 package com.rainbow.mall.goods.service.pojo.dto.service;
 
 import lombok.Data;
-import lombok.experimental.FieldNameConstants;
 
 import java.util.List;
 
 @Data
-@FieldNameConstants
 public class QueryGoodsSkuListDTO {
 
     private String categoryId;
@@ -37,4 +35,10 @@ public class QueryGoodsSkuListDTO {
     private Integer currentPage = 1;
 
     private Integer pageSize =10;
+
+    /**排序字段*/
+    private String sort;
+
+    /**排序方式 asc/desc*/
+    private String order;
 }

@@ -1,6 +1,8 @@
 package com.rainbow.mall.goods.service.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.google.common.collect.Lists;
 import com.rainbow.mall.goods.service.convert.GoodsSkuConvert;
 import com.rainbow.mall.goods.service.pojo.entity.GoodsSku;
 import com.rainbow.mall.goods.service.mapper.GoodsSkuMapper;
@@ -33,5 +35,15 @@ public class  GoodsSkuRepository {
             GoodsSku goodsSku = goodsSkuConvert.convertToGoodsSku(skuBaseDTO);
             goodsSkuMapper.insert(goodsSku);
         }
+    }
+
+    public List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList) {
+        if(CollectionUtils.isEmpty(skuIdList)){
+            return Lists.newArrayList();
+        }
+        LambdaQueryWrapper<GoodsSku> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(GoodsSku::getId,skuIdList);
+        List<GoodsSku> goodsSkus = goodsSkuMapper.selectList(lambdaQueryWrapper);
+        return goodsSkuConvert.convertToGoodsSkuBaseDTO(goodsSkus);
     }
 }

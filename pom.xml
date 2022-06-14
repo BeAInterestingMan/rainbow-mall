@@ -43,6 +43,7 @@
         <rocketmq.version>2.1.0</rocketmq.version>
         <hutool.version>5.7.5</hutool.version>
         <es.version>6.8.12</es.version>
+        <minio.version>8.3.4</minio.version>
     </properties>
 
 
@@ -149,6 +150,13 @@
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>${es.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

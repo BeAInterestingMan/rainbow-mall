@@ -1,0 +1,30 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: mall-base
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+mall:
+  swagger:
+    enable: true
+    basePackage: com.rainbow.mall.base.controller
+    title: mall-base
+    description: mall通用能力模块接口文档
+    contact: melo-lh
+    version: 1.0
+
+  minio:
+    endpoint: http://114.116.105.15:9000 #Minio服务api所在地址
+    bucketName: rainbow-mall    #存储桶名称
+    accessKey: GW8yS7Abx5FMTtFN #访问的key
+    secretKey: n0AVl9k7rEASVnrHLukxJVbuF9A4HQTJ #
+
+
+logging:
+  level:
+    com.rainbow.mall.goods.mapper: debug

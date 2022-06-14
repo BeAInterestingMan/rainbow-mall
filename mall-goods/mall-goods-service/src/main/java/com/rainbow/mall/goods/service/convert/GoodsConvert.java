@@ -3,6 +3,7 @@ package com.rainbow.mall.goods.service.convert;
 import com.rainbow.mall.common.entity.entity.base.Page;
 import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptDTO;
 import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptParamDTO;
+import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.entity.Goods;
@@ -14,6 +15,8 @@ import com.rainbow.mall.goods.service.pojo.response.QueryGoodsSkuListResponse;
 import com.rainbow.mall.search.api.pojo.request.GoodsSkuSearchRequest;
 import com.rainbow.mall.search.api.pojo.response.GoodsSkuSearchResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -26,6 +29,9 @@ public interface GoodsConvert {
 
     Goods convertToGoods(GoodsBaseDTO goodsBaseDTO);
 
+    @Mappings({
+            @Mapping(source = "pageNumber",target = "currentPage")
+    })
     QueryGoodsSkuListDTO convertToQueryGoodsSkuListDTO(QueryGoodsSkuListRequest request);
 
     Page<List<QueryGoodsSkuListResponse>> convertToQueryGoodsSkuListResponse(Page<List<QuerySkuListGoodsBaseDTO>> page);
@@ -37,4 +43,6 @@ public interface GoodsConvert {
     GoodsSkuSearchAdaptParamDTO convertToGoodsSkuSearchAdaptParamDTO(QueryGoodsSkuListDTO dto);
 
     Page<List<QuerySkuListGoodsBaseDTO>> convertToGoodsSkuSearchAdaptDTOPage(Page<List<GoodsSkuSearchAdaptDTO>> page);
+
+    Page<List<QuerySkuListGoodsBaseDTO>> convertToQuerySkuListGoodsBaseDTO(Page<List<GoodsSkuBaseDTO>> build);
 }

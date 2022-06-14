@@ -37,6 +37,11 @@ public class GoodsSkuServiceImpl  implements GoodsSkuService {
         // TODO 库存服务拆分
     }
 
+    @Override
+    public List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList) {
+        return goodsSkuRepository.queryBySkuIdList(skuIdList);
+    }
+
     private void insertSkuList(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {
         List<GoodsSkuBaseDTO> skuBaseDTOS = skuList.stream().map(skuInfo -> {
             return buildInsertGoodSku(skuInfo, goodsBaseDTO);

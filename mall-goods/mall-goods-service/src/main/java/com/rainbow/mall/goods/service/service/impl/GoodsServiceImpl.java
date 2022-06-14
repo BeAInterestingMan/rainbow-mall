@@ -13,6 +13,7 @@ import com.rainbow.mall.goods.service.enums.GoodsTypeEnum;
 import com.rainbow.mall.goods.service.enums.ResultCode;
 import com.rainbow.mall.goods.service.exception.GoodsServiceException;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
@@ -82,8 +83,13 @@ public class GoodsServiceImpl  implements GoodsService {
         // 1.查询es获取商品sku idList  再从mysql捞取实时数据  mysql数据最准确
         Page<List<GoodsSkuSearchAdaptDTO>> page = goodsSearchAdapt.goodsSearch(paramDTO);
         List<String> skuIdList = page.getData().stream().map(GoodsSkuSearchAdaptDTO::getId).collect(Collectors.toList());
-
-        return goodsConvert.convertToGoodsSkuSearchAdaptDTOPage(page);
+        List<GoodsSkuBaseDTO> list = goodsSkuService.queryBySkuIdList(skuIdList);
+        Page<List<GoodsSkuBaseDTO>> build =new Page<>();
+        build.setCurrentPage(page.getCurrentPage());
+        build.setPageSize(page.getPageSize());
+        build.setTotal(page.getTotal());
+        build.setData(list);
+        return goodsConvert.convertToQuerySkuListGoodsBaseDTO(build);
     }
 
     private void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {
