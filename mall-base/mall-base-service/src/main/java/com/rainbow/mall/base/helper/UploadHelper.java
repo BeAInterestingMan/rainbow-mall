@@ -1,8 +1,10 @@
 package com.rainbow.mall.base.helper;
 
+import cn.hutool.core.lang.UUID;
 import com.rainbow.mall.base.properties.MinioProperties;
+import com.rainbow.mall.common.core.utils.LocalDateUtil;
+import com.rainbow.mall.common.core.utils.SnowFlakeUtil;
 import io.minio.*;
-import io.minio.errors.*;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
@@ -16,18 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 @Component
 @Slf4j
-public class MinioHelper {
+public class UploadHelper {
     @Autowired
     private MinioProperties minioProperties;
 
@@ -104,20 +104,27 @@ public class MinioHelper {
         if(Objects.isNull(file)){
             return StringUtils.EMPTY;
         }
-        String originalFilename = file.getOriginalFilename();
+        String objectName = getObjectName();
         try {
-            PutObjectArgs objectArgs = PutObjectArgs.builder().bucket(minioProperties.getBucketName()).object(originalFilename)
+            PutObjectArgs.builder().bucket(minioProperties.getBucketName()).object(objectName)
                     .stream(file.getInputStream(), file.getSize(), -1).contentType(file.getContentType()).build();
-            //文件名称相同会覆盖
-            minioClient.putObject(objectArgs);
             // 返回上传Url
-            return getCommonUploadUrl(minioProperties.getEndpoint(),minioProperties.getBucketName(),originalFilename);
+            return getCommonUploadUrl(minioProperties.getEndpoint(),minioProperties.getBucketName(),objectName);
         } catch (Exception e) {
             log.info("execute commonUpload error",e);
             return StringUtils.EMPTY;
         }
     }
 
+    /**
+     * @Description 文件名称
+     * @author liuhu
+     * @date 2022/6/14 19:47
+     * @return java.lang.String
+     */
+    public String getObjectName(){
+        return LocalDateUtil.localDateFormat(LocalDate.now(), "yyyyMMdd")+"_"+ SnowFlakeUtil.snowflakeId() +".jpg";
+    }
 
     /**
      * @Description 上传本地文件
@@ -149,12 +156,12 @@ public class MinioHelper {
      * @Description 通过流上传文件
      * @author liuhu
      * @param bucketName
-     * @param objectName
      * @param inputStream
      * @date 2022/6/14 15:28
      * @return java.lang.String
      */
-    public String  commonUpload(String bucketName, String objectName, InputStream inputStream) throws Exception {
+    public String  commonUpload(String bucketName, InputStream inputStream){
+        String objectName = getObjectName();
         try {
             minioClient.putObject(
                     PutObjectArgs.builder()

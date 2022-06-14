@@ -20,7 +20,6 @@ mall:
 
   minio:
     endpoint: http://114.116.105.15:9000 #Minio服务api所在地址
-    bucketName: rainbow-mall    #存储桶名称
     accessKey: GW8yS7Abx5FMTtFN #访问的key
     secretKey: n0AVl9k7rEASVnrHLukxJVbuF9A4HQTJ #
 
