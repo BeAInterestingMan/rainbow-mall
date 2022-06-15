@@ -42,7 +42,7 @@ public class  GoodsSkuRepository {
             return Lists.newArrayList();
         }
         LambdaQueryWrapper<GoodsSku> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(GoodsSku::getId,skuIdList);
+        lambdaQueryWrapper.in(GoodsSku::getId,skuIdList);
         List<GoodsSku> goodsSkus = goodsSkuMapper.selectList(lambdaQueryWrapper);
         return goodsSkuConvert.convertToGoodsSkuBaseDTO(goodsSkus);
     }

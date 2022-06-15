@@ -35,4 +35,4 @@ mall:
 
 logging:
   level:
-    com.rainbow.mall.goods.mapper: debug
+    com.rainbow.mall.goods.service.mapper: debug
