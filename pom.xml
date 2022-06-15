@@ -44,6 +44,7 @@
         <hutool.version>5.7.5</hutool.version>
         <es.version>6.8.12</es.version>
         <minio.version>8.3.4</minio.version>
+        <guava.version>30.0-jre</guava.version>
     </properties>
 
 
@@ -156,6 +157,13 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

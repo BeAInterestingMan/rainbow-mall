@@ -14,4 +14,6 @@ public interface GoodsSkuConvert {
     List<GoodsSkuBaseDTO> convertToGoodsSkuBaseDTO(List<GoodsSku> goodsSkuList);
 
     GoodsSku convertToGoodsSku(GoodsSkuBaseDTO skuBaseDTO);
+
+    List<GoodsSku> convertToGoodsSkuList(List<GoodsSkuBaseDTO> skuBaseDTOS);
 }

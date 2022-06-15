@@ -3,6 +3,7 @@ package com.rainbow.mall.common.datasource.config;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.rainbow.mall.common.datasource.helper.MybatisBatchHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,5 +31,10 @@ public class MybatisPlusConfig {
         sqlParserList.add(new BlockAttackSqlParser());
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
+    }
+
+    @Bean
+    public MybatisBatchHelper registerMybatisBatchHelper(){
+        return new MybatisBatchHelper();
     }
 }
