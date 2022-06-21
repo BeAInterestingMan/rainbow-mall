@@ -44,11 +44,6 @@ public class  GoodsSkuRepository {
         if(count != skuBaseDTOS.size()){
             log.warn("更新数量不等于传入数量，req:{}", JSON.toJSONString(skuBaseDTOS));
         }
-//        // TODO DB HELPER 改造
-//        for (GoodsSkuBaseDTO skuBaseDTO : skuBaseDTOS) {
-//            GoodsSku goodsSku = goodsSkuConvert.convertToGoodsSku(skuBaseDTO);
-//            goodsSkuMapper.insert(goodsSku);
-//        }
     }
 
     public List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList) {
