@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: 8001
 
 spring:
   application:
@@ -35,4 +35,4 @@ mall:
 
 logging:
   level:
-    com.rainbow.mall.goods.mapper: debug
+    com.rainbow.mall.goods.service.mapper: debug
