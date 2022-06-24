@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>org.rainbow</groupId>
-            <artifactId>rainbow-common-datasource-starter</artifactId>
+            <artifactId>mall-common-datasource-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

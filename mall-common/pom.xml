@@ -16,7 +16,7 @@
         <module>mall-common-redis-starter</module>
         <module>mall-common-core</module>
         <module>mall-common-doc-starter</module>
-        <module>rainbow-common-datasource-starter</module>
+        <module>mall-common-datasource-starter</module>
         <module>mall-common-entity</module>
         <module>mall-common-job-starter</module>
     </modules>

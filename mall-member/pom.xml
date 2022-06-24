@@ -8,7 +8,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
     <description>会员</description>
+    <modules>
+        <module>mall-member-api</module>
+        <module>mall-member-service</module>
+    </modules>
     <artifactId>mall-member</artifactId>
 
     <properties>

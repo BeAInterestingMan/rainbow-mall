@@ -1,0 +1,50 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: mall-marketing
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://114.116.105.15:3306/lilishop?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useAffectedRows=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+
+mybatis-plus:
+  type-aliases-package: com.rainbow.mall.marketing.service.pojo.entity
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+mall:
+  swagger:
+    enable: true
+    basePackage: com.rainbow.mall.marketing.service.controller
+    title: mall-marketing
+    description: mall营销模块接口文档
+    contact: melo-lh
+    version: 1.0
+
+xxl:
+  job:
+    adminAddresses: http://127.0.0.1:7000/xxl-job-admin
+    accessToken:
+    appName: mall-goods
+    address:
+    ip:
+    port: 9999
+    logpath: /data/applogs/xxl-job/jobhandler
+    logRetentionDays: 30
+
+
+logging:
+  level:
+    com.rainbow.mall.marketing.mapper: debug

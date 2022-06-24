@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.order.service.mapper.OrderComplaintMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.order.service.pojo.entity.OrderComplaint" id="orderComplaintMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="appealContent" column="appeal_content"/>
+        <result property="appealImages" column="appeal_images"/>
+        <result property="appealTime" column="appeal_time"/>
+        <result property="arbitrationResult" column="arbitration_result"/>
+        <result property="complainStatus" column="complain_status"/>
+        <result property="complainTopic" column="complain_topic"/>
+        <result property="consigneeAddressPath" column="consignee_address_path"/>
+        <result property="consigneeMobile" column="consignee_mobile"/>
+        <result property="consigneeName" column="consignee_name"/>
+        <result property="content" column="content"/>
+        <result property="freightPrice" column="freight_price"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsImage" column="goods_image"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="images" column="images"/>
+        <result property="logisticsNo" column="logistics_no"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="num" column="num"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderTime" column="order_time"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="skuId" column="sku_id"/>
+    </resultMap>
+
+
+</mapper>

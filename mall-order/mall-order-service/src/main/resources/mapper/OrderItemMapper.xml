@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.order.service.mapper.OrderItemMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.order.service.pojo.entity.OrderItem" id="orderItemMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="afterSaleStatus" column="after_sale_status"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="commentStatus" column="comment_status"/>
+        <result property="complainId" column="complain_id"/>
+        <result property="complainStatus" column="complain_status"/>
+        <result property="flowPrice" column="flow_price"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="image" column="image"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="num" column="num"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="priceDetail" column="price_detail"/>
+        <result property="promotionId" column="promotion_id"/>
+        <result property="promotionType" column="promotion_type"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="sn" column="sn"/>
+        <result property="snapshotId" column="snapshot_id"/>
+        <result property="specs" column="specs"/>
+        <result property="tradeSn" column="trade_sn"/>
+        <result property="priceFluctuationRatio" column="price_fluctuation_ratio"/>
+        <result property="unitPrice" column="unit_price"/>
+        <result property="subTotal" column="sub_total"/>
+        <result property="returnGoodsNumber" column="return_goods_number"/>
+    </resultMap>
+
+
+</mapper>
