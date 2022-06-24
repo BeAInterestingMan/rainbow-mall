@@ -40,6 +40,7 @@ public class GoodsSkuServiceImpl  implements GoodsSkuService {
         }
         insertSkuList(goodsBaseDTO,skuList);
         // TODO 库存服务拆分
+
     }
 
     @Override

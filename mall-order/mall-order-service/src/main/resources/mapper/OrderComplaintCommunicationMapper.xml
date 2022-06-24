@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.order.service.mapper.OrderComplaintCommunicationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.order.service.pojo.entity.OrderComplaintCommunication" id="orderComplaintCommunicationMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="complainId" column="complain_id"/>
+        <result property="content" column="content"/>
+        <result property="owner" column="owner"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="ownerName" column="owner_name"/>
+    </resultMap>
+
+
+</mapper>

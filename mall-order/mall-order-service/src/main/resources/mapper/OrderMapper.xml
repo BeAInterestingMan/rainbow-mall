@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.order.service.mapper.OrderMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.order.service.pojo.entity.Order" id="orderMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="canReturn" column="can_return"/>
+        <result property="cancelReason" column="cancel_reason"/>
+        <result property="clientType" column="client_type"/>
+        <result property="completeTime" column="complete_time"/>
+        <result property="consigneeAddressIdPath" column="consignee_address_id_path"/>
+        <result property="consigneeAddressPath" column="consignee_address_path"/>
+        <result property="consigneeDetail" column="consignee_detail"/>
+        <result property="consigneeMobile" column="consignee_mobile"/>
+        <result property="consigneeName" column="consignee_name"/>
+        <result property="deliverStatus" column="deliver_status"/>
+        <result property="discountPrice" column="discount_price"/>
+        <result property="flowPrice" column="flow_price"/>
+        <result property="freightPrice" column="freight_price"/>
+        <result property="goodsNum" column="goods_num"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="logisticsCode" column="logistics_code"/>
+        <result property="logisticsName" column="logistics_name"/>
+        <result property="logisticsNo" column="logistics_no"/>
+        <result property="logisticsTime" column="logistics_time"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="needReceipt" column="need_receipt"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderType" column="order_type"/>
+        <result property="parentOrderSn" column="parent_order_sn"/>
+        <result property="payOrderNo" column="pay_order_no"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="paymentMethod" column="payment_method"/>
+        <result property="paymentTime" column="payment_time"/>
+        <result property="priceDetail" column="price_detail"/>
+        <result property="promotionId" column="promotion_id"/>
+        <result property="remark" column="remark"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="sn" column="sn"/>
+        <result property="tradeSn" column="trade_sn"/>
+        <result property="weight" column="weight"/>
+        <result property="qrCode" column="qr_code"/>
+        <result property="updatePrice" column="update_price"/>
+        <result property="distributionId" column="distribution_id"/>
+        <result property="deliveryMethod" column="delivery_method"/>
+        <result property="usePlatformMemberCouponId" column="use_platform_member_coupon_id"/>
+        <result property="useStoreMemberCouponIds" column="use_store_member_coupon_ids"/>
+        <result property="receivableNo" column="receivable_no"/>
+        <result property="orderPromotionType" column="order_promotion_type"/>
+        <result property="verificationCode" column="verification_code"/>
+    </resultMap>
+
+
+</mapper>
