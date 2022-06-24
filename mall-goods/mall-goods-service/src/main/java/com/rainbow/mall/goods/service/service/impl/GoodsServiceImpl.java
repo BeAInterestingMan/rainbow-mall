@@ -8,15 +8,18 @@ import com.rainbow.mall.goods.service.adapt.GoodsSearchAdapt;
 import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptDTO;
 import com.rainbow.mall.goods.service.adapt.dto.GoodsSkuSearchAdaptParamDTO;
 import com.rainbow.mall.goods.service.convert.GoodsConvert;
+import com.rainbow.mall.goods.service.enums.GoodsAuthEnum;
 import com.rainbow.mall.goods.service.enums.GoodsStatusEnum;
 import com.rainbow.mall.goods.service.enums.GoodsTypeEnum;
 import com.rainbow.mall.goods.service.enums.ResultCode;
 import com.rainbow.mall.goods.service.exception.GoodsServiceException;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.base.GoodsGalleryBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
 import com.rainbow.mall.goods.service.repository.GoodsRepository;
 import com.rainbow.mall.goods.service.service.GoodsGalleryService;
 import com.rainbow.mall.goods.service.service.GoodsService;
@@ -48,10 +51,10 @@ public class GoodsServiceImpl  implements GoodsService {
    private TransactionTemplate transactionTemplate;
 
    @Autowired
-   private GoodsGalleryService goodsGalleryService;
+   private GoodsSearchAdapt goodsSearchAdapt;
 
    @Autowired
-   private GoodsSearchAdapt goodsSearchAdapt;
+   private GoodsGalleryService goodsGalleryService;
 
     @Override
     public void createGoods(GoodsCreateDTO goodsCreateDTO) {
@@ -90,6 +93,28 @@ public class GoodsServiceImpl  implements GoodsService {
         build.setTotal(page.getTotal());
         build.setData(list);
         return goodsConvert.convertToQuerySkuListGoodsBaseDTO(build);
+    }
+
+    @Override
+    public Map<String, Object> getGoodsSkuDetail(String goodsId, String skuId) {
+       getGoodsBaseDetail(goodsId);
+       if(Objects.isNull(goodsBaseDTO)){
+           return null;
+       }
+        //商品下架||商品未审核通过||商品删除，则提示：商品已下架
+        if (GoodsStatusEnum.DOWN.name().equals(goodsBaseDTO.getMarketEnable()) || !GoodsAuthEnum.PASS.name().equals(goodsBaseDTO.getAuthFlag())){
+           return null;
+        }
+        GoodsSkuBaseDetailDTO skuDetailInfo = goodsSkuService.getSkuDetailInfo(skuId);
+        return null;
+    }
+
+    private void getGoodsBaseDetail(String goodsId) {
+        GoodsBaseDTO goodsBaseDTO = goodsRepository.getGoodsById(goodsId);
+        List<GoodsGalleryBaseDTO> galleryBaseDTOS = goodsGalleryService.queryByList(goodsId);
+        List<String> galleryList = galleryBaseDTOS.stream().map(GoodsGalleryBaseDTO::getOriginal).collect(Collectors.toList());
+        goodsVO.setGoodsGalleryList(galleryList);
+        goodsSkuService.getSkuDetailInfo(goodsId);
     }
 
     private void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {

@@ -3,6 +3,7 @@ package com.rainbow.mall.goods.service.service;
 
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -27,5 +28,7 @@ public interface GoodsSkuService {
      * @return java.util.List<com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO>
      */
     List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList);
+
+    GoodsSkuBaseDetailDTO getSkuDetailInfo(String skuId);
 }
 

@@ -1,7 +1,9 @@
 package com.rainbow.mall.goods.service.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Lists;
 import com.rainbow.mall.common.core.utils.BigDecimalUtil;
 import com.rainbow.mall.common.core.utils.SnowFlakeUtil;
@@ -10,6 +12,9 @@ import com.rainbow.mall.goods.service.enums.ResultCode;
 import com.rainbow.mall.goods.service.exception.GoodsServiceException;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuSpecImagesDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuSpecValueDTO;
 import com.rainbow.mall.goods.service.repository.GoodsSkuRepository;
 import com.rainbow.mall.goods.service.service.GoodsSkuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +45,49 @@ public class GoodsSkuServiceImpl  implements GoodsSkuService {
     @Override
     public List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList) {
         return goodsSkuRepository.queryBySkuIdList(skuIdList);
+    }
+
+    @Override
+    public GoodsSkuBaseDetailDTO getSkuDetailInfo(String skuId) {
+       GoodsSkuBaseDTO goodsSkuBaseDTO =  goodsSkuRepository.getById(skuId);
+       if(Objects.isNull(goodsSkuBaseDTO)){
+           return null;
+       }
+       GoodsSkuBaseDetailDTO goodsSkuBaseDetailDTO  = goodsSkuConvert.convertToGoodsSkuBaseDetailDTO(goodsSkuBaseDTO);
+       fillSpec(goodsSkuBaseDetailDTO);
+       return goodsSkuBaseDetailDTO;
+    }
+
+    /**
+     * @Description 填充sku得规格信息
+     * @author liuhu
+     * @param goodsSkuBaseDetailDTO
+     * @date 2022/6/23 22:41
+     * @return void
+     */
+    private void fillSpec(GoodsSkuBaseDetailDTO goodsSkuBaseDetailDTO) {
+        String specs = goodsSkuBaseDetailDTO.getSpecs();
+        if(StringUtils.isEmpty(specs)){
+            return;
+        }
+        List<GoodsSkuSpecValueDTO> specValueDTOS = new ArrayList<>();
+        Map<String, String> specsMap = JSON.parseObject(specs, new TypeReference<Map<String, String>>() {});
+        List<GoodsSkuSpecImagesDTO> imagesList = new ArrayList<>();
+        for (Map.Entry<String, String> entry : specsMap.entrySet()) {
+            GoodsSkuSpecValueDTO skuSpecValueDTO = new GoodsSkuSpecValueDTO();
+            String key = entry.getKey();
+            skuSpecValueDTO.setSpecName(entry.getKey());
+            if(Objects.equals(key,"images")){
+                 imagesList = JSON.parseArray(entry.getValue(), GoodsSkuSpecImagesDTO.class);
+                skuSpecValueDTO.setSpecImage(imagesList);
+                continue;
+            }
+            skuSpecValueDTO.setSpecValue(entry.getValue());
+            specValueDTOS.add(skuSpecValueDTO);
+        }
+        List<String> goodsSkuGalleryList = imagesList.stream().map(GoodsSkuSpecImagesDTO::getUrl).collect(Collectors.toList());
+        goodsSkuBaseDetailDTO.setGoodsGalleryList(goodsSkuGalleryList);
+        goodsSkuBaseDetailDTO.setSpecList(specValueDTOS);
     }
 
     private void insertSkuList(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {

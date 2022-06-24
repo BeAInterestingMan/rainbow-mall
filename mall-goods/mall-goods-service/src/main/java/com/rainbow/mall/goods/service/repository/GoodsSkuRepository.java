@@ -46,4 +46,11 @@ public class  GoodsSkuRepository {
         List<GoodsSku> goodsSkus = goodsSkuMapper.selectList(lambdaQueryWrapper);
         return goodsSkuConvert.convertToGoodsSkuBaseDTO(goodsSkus);
     }
+
+    public GoodsSkuBaseDTO getById(String skuId) {
+        LambdaQueryWrapper<GoodsSku> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(GoodsSku::getId,skuId);
+        GoodsSku goodsSku = goodsSkuMapper.selectById(lambdaQueryWrapper);
+        return goodsSkuConvert.convertToGoodsSkuBaseDTO(goodsSku);
+    }
 }

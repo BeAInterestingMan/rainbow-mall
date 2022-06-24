@@ -1,5 +1,6 @@
 package com.rainbow.mall.goods.service.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rainbow.mall.goods.service.convert.GoodsConvert;
 import com.rainbow.mall.goods.service.pojo.entity.Goods;
 import com.rainbow.mall.goods.service.mapper.GoodsMapper;
@@ -31,5 +32,13 @@ public class  GoodsRepository {
         goodsMapper.insert(goods);
         goodsBaseDTO.setId(goods.getId());
         return goodsBaseDTO;
+    }
+
+    public GoodsBaseDTO getGoodsById(String goodsId) {
+        LambdaQueryWrapper<Goods> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(Goods::getId,goodsId)
+                    .eq(Goods::getDeleteFlag,false);
+        Goods goods = goodsMapper.selectOne(queryWrapper);
+       return goodsConvert.convertToGoodsBaseDTO(goods);
     }
 }

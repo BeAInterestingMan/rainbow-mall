@@ -14,14 +14,18 @@ import com.rainbow.mall.goods.service.pojo.response.QueryGoodsSkuListResponse;
 import com.rainbow.mall.goods.service.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Api(tags = "买家端-商品接口")
@@ -50,6 +54,19 @@ public class GoodsBuyerController {
         QueryGoodsSkuListDTO dto = goodsConvert.convertToQueryGoodsSkuListDTO(request);
         Page<List<QuerySkuListGoodsBaseDTO>> page = goodsService.querySkuList(dto);
         return Result.success(goodsConvert.convertToQueryGoodsSkuListResponse(page));
+    }
+
+    @ApiOperation(value = "通过id获取商品信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "goodsId", value = "商品ID", required = true, paramType = "path"),
+            @ApiImplicitParam(name = "skuId", value = "skuId", required = true, paramType = "path")
+    })
+    @GetMapping(value = "/sku/{goodsId}/{skuId}")
+    public Result<Map<String, Object>> getSku(@NotNull(message = "商品ID不能为空") @PathVariable("goodsId") String goodsId,
+                                                     @NotNull(message = "SKU ID不能为空") @PathVariable("skuId") String skuId) {
+            // 读取选中的列表
+            Map<String, Object> map = goodsService.getGoodsSkuDetail(goodsId, skuId);
+            return Result.success(map);
     }
 
 
