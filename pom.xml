@@ -45,6 +45,7 @@
         <es.version>6.8.12</es.version>
         <minio.version>8.3.4</minio.version>
         <guava.version>30.0-jre</guava.version>
+        <xxl.job.version>2.3.0</xxl.job.version>
     </properties>
 
 
@@ -164,7 +165,11 @@
                 <version>${guava.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl.job.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
