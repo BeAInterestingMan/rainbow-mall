@@ -1,8 +1,9 @@
 package com.rainbow.mall.goods.service.convert;
 
-import com.rainbow.mall.goods.service.pojo.entity.GoodsSku;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
+import com.rainbow.mall.goods.service.pojo.entity.GoodsSku;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface GoodsSkuConvert {
     GoodsSkuBaseDetailDTO convertToGoodsSkuBaseDetailDTO(GoodsSkuBaseDTO goodsSkuBaseDTO);
 
     List<GoodsSku> convertToGoodsSkuList(List<GoodsSkuBaseDTO> skuBaseDTOS);
+
+    List<GoodsSkuBaseDTO> convertToGoodsSkuBaseDTOList(List<GoodsSku> goodsSkus);
 }

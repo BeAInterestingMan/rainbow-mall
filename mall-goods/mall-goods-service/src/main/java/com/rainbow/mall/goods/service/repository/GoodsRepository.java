@@ -7,7 +7,9 @@ import com.rainbow.mall.goods.service.mapper.GoodsMapper;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -38,7 +40,7 @@ public class  GoodsRepository {
         LambdaQueryWrapper<Goods> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(Goods::getId,goodsId)
                     .eq(Goods::getDeleteFlag,false);
-        Goods goods = goodsMapper.selectOne(queryWrapper);
-       return goodsConvert.convertToGoodsBaseDTO(goods);
+        Goods goodsList = goodsMapper.selectOne(queryWrapper);
+        return goodsConvert.convertToGoodsBaseDTO(goodsList);
     }
 }

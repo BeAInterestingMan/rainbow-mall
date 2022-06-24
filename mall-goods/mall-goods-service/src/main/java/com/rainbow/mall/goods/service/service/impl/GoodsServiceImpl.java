@@ -2,6 +2,8 @@ package com.rainbow.mall.goods.service.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.rainbow.mall.common.core.utils.SnowFlakeUtil;
 import com.rainbow.mall.common.entity.entity.base.Page;
 import com.rainbow.mall.goods.service.adapt.GoodsSearchAdapt;
@@ -13,25 +15,33 @@ import com.rainbow.mall.goods.service.enums.GoodsStatusEnum;
 import com.rainbow.mall.goods.service.enums.GoodsTypeEnum;
 import com.rainbow.mall.goods.service.enums.ResultCode;
 import com.rainbow.mall.goods.service.exception.GoodsServiceException;
+import com.rainbow.mall.goods.service.pojo.dto.base.CategoryBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsGalleryBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.WholesaleDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuSpecDTO;
+import com.rainbow.mall.goods.service.pool.GoodThreadPool;
 import com.rainbow.mall.goods.service.repository.GoodsRepository;
+import com.rainbow.mall.goods.service.service.CategoryService;
 import com.rainbow.mall.goods.service.service.GoodsGalleryService;
 import com.rainbow.mall.goods.service.service.GoodsService;
 import com.rainbow.mall.goods.service.service.GoodsSkuService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -55,6 +65,12 @@ public class GoodsServiceImpl  implements GoodsService {
 
    @Autowired
    private GoodsGalleryService goodsGalleryService;
+
+   @Autowired
+   private CategoryService categoryService;
+
+   @Autowired
+   private ThreadPoolTaskExecutor executor;
 
     @Override
     public void createGoods(GoodsCreateDTO goodsCreateDTO) {
@@ -96,26 +112,108 @@ public class GoodsServiceImpl  implements GoodsService {
     }
 
     @Override
-    public Map<String, Object> getGoodsSkuDetail(String goodsId, String skuId) {
-       getGoodsBaseDetail(goodsId);
-       if(Objects.isNull(goodsBaseDTO)){
-           return null;
-       }
+    public GoodsSkuDetailDTO getGoodsSkuDetail(String goodsId, String skuId) {
+        //1.获取spu基本信息
+        GoodsBaseDTO goodsBaseDTO = goodsRepository.getGoodsById(goodsId);
         //商品下架||商品未审核通过||商品删除，则提示：商品已下架
         if (GoodsStatusEnum.DOWN.name().equals(goodsBaseDTO.getMarketEnable()) || !GoodsAuthEnum.PASS.name().equals(goodsBaseDTO.getAuthFlag())){
-           return null;
+            return null;
         }
-        GoodsSkuBaseDetailDTO skuDetailInfo = goodsSkuService.getSkuDetailInfo(skuId);
-        return null;
+        GoodsDetailBaseDTO goodsDetailBaseDTO = goodsConvert.convertToGoodsDetailBaseDTO(goodsBaseDTO);
+        CompletableFuture.supplyAsync(()-> fillCategoryNameList(goodsDetailBaseDTO),executor)
+                         .thenCombine(CompletableFuture.supplyAsync(()-> queryGalleryList(goodsDetailBaseDTO),executor),this::fillGalleryList)
+                         .thenCombine(CompletableFuture.supplyAsync(()-> queryWholesaleList(goodsDetailBaseDTO),executor),this::fillWholesaleList)
+                         .thenCombine(CompletableFuture.supplyAsync(()-> queryGoodsSkuBaseDetailList(goodsDetailBaseDTO.getId()),executor),this::fillGoodsSkuBaseDetailList)
+                         .exceptionally(throwable -> {
+                             log.error("并发查询商品详情异常",throwable);
+                             return null;
+                         }).join();
+
+        List<GoodsSkuBaseDetailDTO> detailDTOS = goodsDetailBaseDTO.getSkuList().stream().filter(skuInfo -> Objects.equals(String.valueOf(skuInfo.getId()), skuId)).collect(Collectors.toList());
+        if(CollectionUtils.isEmpty(detailDTOS)){
+            return null;
+        }
+        GoodsSkuBaseDetailDTO goodsSkuBaseDetailDTO = detailDTOS.get(0);
+        goodsSkuBaseDetailDTO.setPromotionFlag(false);
+        goodsSkuBaseDetailDTO.setPromotionPrice(null);
+        List<GoodsSkuSpecDTO> goodsSkuSpecDTOS = this.groupBySkuAndSpec(goodsDetailBaseDTO.getSkuList());
+        return GoodsSkuDetailDTO.builder()
+                  .data(goodsSkuBaseDetailDTO)
+                 .wholesaleList(goodsDetailBaseDTO.getWholesaleList())
+                 .categoryName(goodsDetailBaseDTO.getCategoryName())
+                 .promotionMap(new HashMap<>())
+                 .specs(goodsSkuSpecDTOS).build();
     }
 
-    private void getGoodsBaseDetail(String goodsId) {
-        GoodsBaseDTO goodsBaseDTO = goodsRepository.getGoodsById(goodsId);
-        List<GoodsGalleryBaseDTO> galleryBaseDTOS = goodsGalleryService.queryByList(goodsId);
-        List<String> galleryList = galleryBaseDTOS.stream().map(GoodsGalleryBaseDTO::getOriginal).collect(Collectors.toList());
-        goodsVO.setGoodsGalleryList(galleryList);
-        goodsSkuService.getSkuDetailInfo(goodsId);
+
+    private Map<String,Object> queryPromotionMap(GoodsDetailBaseDTO goodsDetailBaseDTO) {
+        // TODO
+        return Maps.newHashMap();
     }
+
+    private GoodsDetailBaseDTO fillGoodsSkuBaseDetailList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<GoodsSkuBaseDetailDTO> goodsSkuBaseDTOS) {
+        goodsDetailBaseDTO.setSkuList(goodsSkuBaseDTOS);
+        return goodsDetailBaseDTO;
+    }
+
+    private List<GoodsSkuBaseDetailDTO> queryGoodsSkuBaseDetailList(String goodsId) {
+        List<GoodsSkuBaseDTO> goodsSkuBaseDTOS = goodsSkuService.getByGoodsId(goodsId);
+        List<GoodsSkuBaseDetailDTO> detailDTOS = goodsSkuBaseDTOS.stream().map(v -> {
+            return goodsSkuService.getSkuDetailInfo(String.valueOf(v.getId()));
+        }).collect(Collectors.toList());
+        return detailDTOS;
+    }
+
+    private GoodsDetailBaseDTO fillWholesaleList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<WholesaleDTO> wholesaleDTOS) {
+        goodsDetailBaseDTO.setWholesaleList(wholesaleDTOS);
+        return goodsDetailBaseDTO;
+    }
+
+    private List<WholesaleDTO> queryWholesaleList(GoodsDetailBaseDTO goodsDetailBaseDTO) {
+        return Lists.newArrayList();
+    }
+
+    private GoodsDetailBaseDTO fillGalleryList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<GoodsGalleryBaseDTO> galleryBaseDTOS) {
+        List<String> galleryList = galleryBaseDTOS.stream().map(GoodsGalleryBaseDTO::getOriginal).collect(Collectors.toList());
+        goodsDetailBaseDTO.setGoodsGalleryList(galleryList);
+        return goodsDetailBaseDTO;
+    }
+
+
+    private List<GoodsGalleryBaseDTO> queryGalleryList(GoodsDetailBaseDTO goodsDetailBaseDTO) {
+        return goodsGalleryService.queryByList(goodsDetailBaseDTO.getId());
+    }
+
+    private GoodsDetailBaseDTO fillCategoryNameList(GoodsDetailBaseDTO goodsDetailBaseDTO) {
+        if(StringUtils.isBlank(goodsDetailBaseDTO.getCategoryPath())){
+            return goodsDetailBaseDTO;
+        }
+        List<String> categoryIdList = Arrays.asList(goodsDetailBaseDTO.getCategoryPath().split(","));
+        List<CategoryBaseDTO> categoryBaseDTOS = categoryService.queryByIdList(categoryIdList);
+        List<String> categoryName = categoryBaseDTOS.stream().map(CategoryBaseDTO::getName).collect(Collectors.toList());
+        goodsDetailBaseDTO.setCategoryName(categoryName);
+        return goodsDetailBaseDTO;
+    }
+
+    /**
+     * 根据商品分组商品sku及其规格信息
+     *
+     * @param goodsSkuVOList 商品VO列表
+     * @return 分组后的商品sku及其规格信息
+     */
+    private List<GoodsSkuSpecDTO> groupBySkuAndSpec(List<GoodsSkuBaseDetailDTO> goodsSkuVOList) {
+
+        List<GoodsSkuSpecDTO> skuSpecVOList = new ArrayList<>();
+        for (GoodsSkuBaseDetailDTO goodsSkuVO : goodsSkuVOList) {
+            GoodsSkuSpecDTO specVO = new GoodsSkuSpecDTO();
+            specVO.setSkuId(goodsSkuVO.getId());
+            specVO.setSpecValues(goodsSkuVO.getSpecList());
+            specVO.setQuantity(goodsSkuVO.getQuantity());
+            skuSpecVOList.add(specVO);
+        }
+        return skuSpecVOList;
+    }
+
 
     private void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {
         goodsSkuService.createGoodsSku(goodsBaseDTO,skuList);

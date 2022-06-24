@@ -8,9 +8,12 @@ import com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO;
 import com.rainbow.mall.goods.service.pojo.entity.Goods;
 import com.rainbow.mall.goods.service.pojo.request.GoodsCreateRequest;
 import com.rainbow.mall.goods.service.pojo.request.QueryGoodsSkuListRequest;
+import com.rainbow.mall.goods.service.pojo.response.GoodsSkuDetailResponse;
 import com.rainbow.mall.goods.service.pojo.response.QueryGoodsSkuListResponse;
 import com.rainbow.mall.search.api.pojo.request.GoodsSkuSearchRequest;
 import com.rainbow.mall.search.api.pojo.response.GoodsSkuSearchResponse;
@@ -47,4 +50,8 @@ public interface GoodsConvert {
     Page<List<QuerySkuListGoodsBaseDTO>> convertToGoodsSkuSearchAdaptDTOPage(Page<List<GoodsSkuSearchAdaptDTO>> page);
 
     Page<List<QuerySkuListGoodsBaseDTO>> convertToQuerySkuListGoodsBaseDTO(Page<List<GoodsSkuBaseDTO>> build);
+
+    GoodsDetailBaseDTO convertToGoodsDetailBaseDTO(GoodsBaseDTO goodsBaseDTO);
+
+    GoodsSkuDetailResponse convertToGoodsSkuDetailResponse(GoodsSkuDetailDTO goodsSkuDetail);
 }

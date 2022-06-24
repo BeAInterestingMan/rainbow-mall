@@ -8,8 +8,10 @@ import com.rainbow.mall.common.entity.entity.base.Result;
 import com.rainbow.mall.goods.service.convert.GoodsConvert;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO;
 import com.rainbow.mall.goods.service.pojo.request.QueryGoodsSkuListRequest;
 import com.rainbow.mall.goods.service.pojo.response.GoodsRelatedResponse;
+import com.rainbow.mall.goods.service.pojo.response.GoodsSkuDetailResponse;
 import com.rainbow.mall.goods.service.pojo.response.QueryGoodsSkuListResponse;
 import com.rainbow.mall.goods.service.service.GoodsService;
 import io.swagger.annotations.Api;
@@ -62,11 +64,12 @@ public class GoodsBuyerController {
             @ApiImplicitParam(name = "skuId", value = "skuId", required = true, paramType = "path")
     })
     @GetMapping(value = "/sku/{goodsId}/{skuId}")
-    public Result<Map<String, Object>> getSku(@NotNull(message = "商品ID不能为空") @PathVariable("goodsId") String goodsId,
+    public Result<GoodsSkuDetailResponse> getSku(@NotNull(message = "商品ID不能为空") @PathVariable("goodsId") String goodsId,
                                                      @NotNull(message = "SKU ID不能为空") @PathVariable("skuId") String skuId) {
             // 读取选中的列表
-            Map<String, Object> map = goodsService.getGoodsSkuDetail(goodsId, skuId);
-            return Result.success(map);
+        GoodsSkuDetailDTO goodsSkuDetail = goodsService.getGoodsSkuDetail(goodsId, skuId);
+        GoodsSkuDetailResponse response =  goodsConvert.convertToGoodsSkuDetailResponse(goodsSkuDetail);
+        return Result.success(response);
     }
 
 

@@ -4,9 +4,9 @@ import com.rainbow.mall.common.entity.entity.base.Page;
 import com.rainbow.mall.goods.service.pojo.dto.service.GoodsCreateDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QueryGoodsSkuListDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO;
+import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface GoodsService {
 
@@ -26,7 +26,14 @@ public interface GoodsService {
      * @return com.rainbow.mall.common.entity.entity.base.Page<java.util.List<com.rainbow.mall.goods.service.pojo.dto.service.QuerySkuListGoodsBaseDTO>>
      */
     Page<List<QuerySkuListGoodsBaseDTO>> querySkuList(QueryGoodsSkuListDTO dto);
-
-    Map<String, Object> getGoodsSkuDetail(String goodsId, String skuId);
+     /**
+      * @Description 查询sku详情
+      * @author liuhu
+      * @param goodsId
+      * @param skuId
+      * @date 2022/6/24 23:06
+      * @return com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO
+      */
+    GoodsSkuDetailDTO getGoodsSkuDetail(String goodsId, String skuId);
 }
 

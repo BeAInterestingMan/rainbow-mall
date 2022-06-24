@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 @Data
@@ -14,30 +13,7 @@ public class GoodsSkuBaseDTO implements Serializable {
 	 * ID
 	 */
 	private Long id;
-	/**
-	 * 创建者
-	 */
-	private String createBy;
-	/**
-	 * 创建时间
-	 */
-	private Date createTime;
-	/**
-	 * 删除标志 true/false 删除/未删除
-	 */
-	private Boolean deleteFlag;
-	/**
-	 * 更新者
-	 */
-	private String updateBy;
-	/**
-	 * 更新时间
-	 */
-	private Date updateTime;
-	/**
-	 * 审核信息
-	 */
-	private String authMessage;
+
 	/**
 	 * 大图路径
 	 */
@@ -170,10 +146,6 @@ public class GoodsSkuBaseDTO implements Serializable {
 	 * 缩略图路径
 	 */
 	private String thumbnail;
-	/**
-	 * 下架原因
-	 */
-	private String underMessage;
 	/**
 	 * 浏览数量
 	 */

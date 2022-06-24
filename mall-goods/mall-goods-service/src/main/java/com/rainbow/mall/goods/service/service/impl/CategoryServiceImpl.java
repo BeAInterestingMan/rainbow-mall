@@ -65,6 +65,11 @@ public class CategoryServiceImpl  implements CategoryService {
         categoryRepository.update(updateCategoryBaseDTO);
     }
 
+    @Override
+    public List<CategoryBaseDTO> queryByIdList(List<String> categoryIdList) {
+        return   categoryRepository.queryByIdList(categoryIdList);
+    }
+
     /**
      * @Description 递归获取子菜单
      * @author liuhu

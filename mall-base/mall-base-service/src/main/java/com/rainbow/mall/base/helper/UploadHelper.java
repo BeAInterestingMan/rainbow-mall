@@ -1,6 +1,5 @@
 package com.rainbow.mall.base.helper;
 
-import cn.hutool.core.lang.UUID;
 import com.rainbow.mall.base.properties.MinioProperties;
 import com.rainbow.mall.common.core.utils.LocalDateUtil;
 import com.rainbow.mall.common.core.utils.SnowFlakeUtil;
@@ -20,7 +19,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

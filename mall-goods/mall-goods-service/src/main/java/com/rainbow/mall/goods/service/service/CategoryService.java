@@ -1,5 +1,6 @@
 package com.rainbow.mall.goods.service.service;
 
+import com.rainbow.mall.goods.service.pojo.dto.base.CategoryBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.BuyerCategoryDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.CategoryAddDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.CategoryUpdateDTO;
@@ -31,5 +32,13 @@ public interface CategoryService {
      * @return void
      */
     void updateCategoryList(CategoryUpdateDTO categoryUpdateDTO);
+    /**
+     * @Description
+     * @author liuhu
+     * @param categoryCodeList
+     * @date 2022/6/24 20:24
+     * @return java.util.List<com.rainbow.mall.goods.service.pojo.dto.base.CategoryBaseDTO>
+     */
+    List<CategoryBaseDTO> queryByIdList(List<String> categoryCodeList);
 }
 

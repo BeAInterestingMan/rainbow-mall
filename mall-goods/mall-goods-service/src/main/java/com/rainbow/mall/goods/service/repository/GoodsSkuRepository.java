@@ -58,8 +58,17 @@ public class  GoodsSkuRepository {
 
     public GoodsSkuBaseDTO getById(String skuId) {
         LambdaQueryWrapper<GoodsSku> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(GoodsSku::getId,skuId);
-        GoodsSku goodsSku = goodsSkuMapper.selectById(lambdaQueryWrapper);
+        lambdaQueryWrapper.eq(GoodsSku::getId,skuId)
+                           .eq(GoodsSku::getDeleteFlag,false);
+        GoodsSku goodsSku = goodsSkuMapper.selectOne(lambdaQueryWrapper);
         return goodsSkuConvert.convertToGoodsSkuBaseDTO(goodsSku);
+    }
+
+    public List<GoodsSkuBaseDTO> getByGoodsId(String goodsId) {
+        LambdaQueryWrapper<GoodsSku> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(GoodsSku::getGoodsId,goodsId)
+                          .eq(GoodsSku::getDeleteFlag,false);
+        List<GoodsSku> goodsSkus = goodsSkuMapper.selectList(lambdaQueryWrapper);
+        return goodsSkuConvert.convertToGoodsSkuBaseDTOList(goodsSkus);
     }
 }

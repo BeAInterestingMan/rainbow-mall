@@ -30,5 +30,7 @@ public interface GoodsSkuService {
     List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList);
 
     GoodsSkuBaseDetailDTO getSkuDetailInfo(String skuId);
+
+    List<GoodsSkuBaseDTO> getByGoodsId(String goodsId);
 }
 
