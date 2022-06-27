@@ -18,11 +18,18 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 
+
+  redis:
+    host: 114.116.105.15
+    port: 6379
+
+
 mybatis-plus:
   type-aliases-package: com.rainbow.mall.goods.service.pojo.entity
   mapper-locations: classpath*:/mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
 
 mall:
   swagger:

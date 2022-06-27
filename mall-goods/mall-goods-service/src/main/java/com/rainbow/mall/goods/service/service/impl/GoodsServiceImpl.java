@@ -151,6 +151,14 @@ public class GoodsServiceImpl  implements GoodsService {
         return Maps.newHashMap();
     }
 
+    /**
+     * @Description 查询当前sku详情
+     * @author liuhu
+     * @param goodsDetailBaseDTO
+     * @param goodsSkuBaseDTOS
+     * @date 2022/6/27 10:56
+     * @return com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO
+     */
     private GoodsDetailBaseDTO fillGoodsSkuBaseDetailList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<GoodsSkuBaseDetailDTO> goodsSkuBaseDTOS) {
         goodsDetailBaseDTO.setSkuList(goodsSkuBaseDTOS);
         return goodsDetailBaseDTO;
@@ -158,10 +166,9 @@ public class GoodsServiceImpl  implements GoodsService {
 
     private List<GoodsSkuBaseDetailDTO> queryGoodsSkuBaseDetailList(String goodsId) {
         List<GoodsSkuBaseDTO> goodsSkuBaseDTOS = goodsSkuService.getByGoodsId(goodsId);
-        List<GoodsSkuBaseDetailDTO> detailDTOS = goodsSkuBaseDTOS.stream().map(v -> {
+        return goodsSkuBaseDTOS.stream().map(v -> {
             return goodsSkuService.getSkuDetailInfo(String.valueOf(v.getId()));
         }).collect(Collectors.toList());
-        return detailDTOS;
     }
 
     private GoodsDetailBaseDTO fillWholesaleList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<WholesaleDTO> wholesaleDTOS) {
@@ -173,17 +180,31 @@ public class GoodsServiceImpl  implements GoodsService {
         return Lists.newArrayList();
     }
 
+    /**
+     * @Description 图片资源
+     * @author liuhu
+     * @param goodsDetailBaseDTO
+     * @param galleryBaseDTOS
+     * @date 2022/6/27 10:56
+     * @return com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO
+     */
     private GoodsDetailBaseDTO fillGalleryList(GoodsDetailBaseDTO goodsDetailBaseDTO, List<GoodsGalleryBaseDTO> galleryBaseDTOS) {
         List<String> galleryList = galleryBaseDTOS.stream().map(GoodsGalleryBaseDTO::getOriginal).collect(Collectors.toList());
         goodsDetailBaseDTO.setGoodsGalleryList(galleryList);
         return goodsDetailBaseDTO;
     }
 
-
     private List<GoodsGalleryBaseDTO> queryGalleryList(GoodsDetailBaseDTO goodsDetailBaseDTO) {
         return goodsGalleryService.queryByList(goodsDetailBaseDTO.getId());
     }
 
+    /**
+     * @Description 分类名称
+     * @author liuhu
+     * @param goodsDetailBaseDTO
+     * @date 2022/6/27 10:56
+     * @return com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO
+     */
     private GoodsDetailBaseDTO fillCategoryNameList(GoodsDetailBaseDTO goodsDetailBaseDTO) {
         if(StringUtils.isBlank(goodsDetailBaseDTO.getCategoryPath())){
             return goodsDetailBaseDTO;

@@ -3,6 +3,7 @@ package com.rainbow.mall.common.redis.helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 /**
  *  @Description redis工具类
@@ -83,4 +84,32 @@ public class RedisHelper {
     public void del(String key) {
         redisTemplate.delete(key);
     }
+
+
+    public Boolean hSetAll(String key, Map<String,Object> map) {
+        try {
+            redisTemplate.opsForHash().putAll(key,map);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean hSet(String key1,String key2, Object value) {
+        try {
+            redisTemplate.opsForHash().put(key1,key2,value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Map<Object, Object> hGetAll(String key) {
+       return redisTemplate.opsForHash().entries(key);
+    }
+
+    public void hDeleteAll(String key) {
+         redisTemplate.opsForHash().delete(key);
+    }
+
 }

@@ -29,8 +29,30 @@ public interface GoodsSkuService {
      */
     List<GoodsSkuBaseDTO> queryBySkuIdList(List<String> skuIdList);
 
+    /**
+     * @Description 获取sku详情
+     * @author liuhu
+     * @param skuId
+     * @date 2022/6/27 16:00
+     * @return com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO
+     */
     GoodsSkuBaseDetailDTO getSkuDetailInfo(String skuId);
 
+    /**
+     * @Description 通过ID查询
+     * @author liuhu
+     * @param goodsId
+     * @date 2022/6/27 15:59
+     * @return java.util.List<com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO>
+     */
     List<GoodsSkuBaseDTO> getByGoodsId(String goodsId);
+    /**
+     * @Description skuId查询
+     * @author liuhu
+     * @param skuId
+     * @date 2022/6/27 13:24
+     * @return com.rainbow.mall.goods.service.pojo.dto.base.GoodsSkuBaseDTO
+     */
+    GoodsSkuBaseDTO getBySkuId(String skuId);
 }
 

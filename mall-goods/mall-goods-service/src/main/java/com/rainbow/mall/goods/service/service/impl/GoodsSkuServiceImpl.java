@@ -64,6 +64,11 @@ public class GoodsSkuServiceImpl  implements GoodsSkuService {
         return goodsSkuRepository.getByGoodsId(goodsId);
     }
 
+    @Override
+    public GoodsSkuBaseDTO getBySkuId(String skuId) {
+        return goodsSkuRepository.getById(skuId);
+    }
+
     /**
      * @Description 填充sku得规格信息
      * @author liuhu
