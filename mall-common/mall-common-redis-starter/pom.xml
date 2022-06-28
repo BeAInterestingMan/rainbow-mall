@@ -17,6 +17,10 @@
     </properties>
     <description>基于redis定制得starter</description>
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!-- redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

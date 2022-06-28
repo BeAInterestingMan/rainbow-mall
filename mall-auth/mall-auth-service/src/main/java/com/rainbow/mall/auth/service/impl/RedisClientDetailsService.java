@@ -1,4 +1,4 @@
-package com.rainbow.mall.auth.service;
+package com.rainbow.mall.auth.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.rainbow.mall.common.redis.helper.RedisHelper;

@@ -1,7 +1,7 @@
 package com.rainbow.mall.auth.config;
 
-import com.rainbow.mall.auth.service.RedisClientDetailsService;
-import com.rainbow.mall.auth.service.UserDetailService;
+import com.rainbow.mall.auth.service.impl.RedisClientDetailsService;
+import com.rainbow.mall.auth.service.impl.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
