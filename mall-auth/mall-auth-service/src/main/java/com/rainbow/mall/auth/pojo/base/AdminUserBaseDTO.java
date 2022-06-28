@@ -1,7 +1,5 @@
-package com.rainbow.mall.auth.pojo.entity;
+package com.rainbow.mall.auth.pojo.base;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,11 +9,9 @@ import java.util.Date;
 
 
 @Data
-@TableName("li_admin_user")
 @ApiModel(value = "管理员")
-public class AdminUser {
+public class AdminUserBaseDTO {
 
-    @TableId
     private String id;
 
     @ApiModelProperty(value = "用户名")
