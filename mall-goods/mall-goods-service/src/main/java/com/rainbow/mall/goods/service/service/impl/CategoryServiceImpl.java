@@ -48,7 +48,7 @@ public class CategoryServiceImpl  implements CategoryService {
         if (!"0".equals(categoryAddDTO.getParentId())) {
             CategoryBaseDTO  categoryBaseDTO =  categoryRepository.getById(categoryAddDTO.getParentId());
             if(Objects.isNull(categoryBaseDTO)){
-                throw new GoodsServiceException(ResultCode.CATEGORY_PARENT_NOT_EXIST);
+                throw new GoodsServiceException(ResultCode.CATEGORY_PARENT_NOT_EXIST.message());
             }
         }
         CategoryBaseDTO categoryBaseDTO = categoryConvert.convertCategoryBaseDTO(categoryAddDTO);
@@ -59,7 +59,7 @@ public class CategoryServiceImpl  implements CategoryService {
     public void updateCategoryList(CategoryUpdateDTO categoryUpdateDTO) {
         CategoryBaseDTO  categoryBaseDTO =  categoryRepository.getById(categoryUpdateDTO.getId());
         if(Objects.isNull(categoryBaseDTO)){
-            throw new GoodsServiceException(ResultCode.CATEGORY_NOT_EXIST);
+            throw new GoodsServiceException(ResultCode.CATEGORY_NOT_EXIST.message());
         }
         CategoryBaseDTO updateCategoryBaseDTO = categoryConvert.convertCategoryBaseDTO(categoryUpdateDTO);
         categoryRepository.update(updateCategoryBaseDTO);

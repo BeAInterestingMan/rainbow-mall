@@ -86,6 +86,7 @@ public class RedisHelper {
     }
 
 
+
     public Boolean hSetAll(String key, Map<String,Object> map) {
         try {
             redisTemplate.opsForHash().putAll(key,map);
@@ -110,6 +111,10 @@ public class RedisHelper {
 
     public void hDeleteAll(String key) {
          redisTemplate.opsForHash().delete(key);
+    }
+
+    public void hDelete(String key1,String key2) {
+        redisTemplate.opsForHash().delete(key1,key2);
     }
 
 }

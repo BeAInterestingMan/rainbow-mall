@@ -24,11 +24,10 @@ public class GoodsCartRepository {
     @Autowired
     private GoodsCartConvert goodsCartConvert;
 
-    public void save(GoodsCartSaveDTO goodsCartAddDTO) {
-        GoodsCartBaseDTO goodsCartBaseDTO =  goodsCartConvert.convertToGoodsCartBaseDTO(goodsCartAddDTO);
+    public void save(GoodsCartBaseDTO goodsCartBaseDTO) {
         // TODO 用户token
         String key = CommonRedisEnums.GOODS_CART_PREFIX+"122333";
-        redisHelper.hSet(key,goodsCartAddDTO.getSkuId(),JSON.toJSONString(goodsCartBaseDTO));
+        redisHelper.hSet(key,goodsCartBaseDTO.getSkuId(),JSON.toJSONString(goodsCartBaseDTO));
     }
 
     /**
@@ -48,5 +47,15 @@ public class GoodsCartRepository {
             list.add(JSON.parseObject(JSON.toJSONString(entry.getValue()),GoodsCartBaseDTO.class));
         }
         return list;
+    }
+
+    public void clean() {
+        String key = CommonRedisEnums.GOODS_CART_PREFIX+"122333";
+        redisHelper.del(key);
+    }
+
+    public void delete(String skuId) {
+        String key = CommonRedisEnums.GOODS_CART_PREFIX+"122333";
+        redisHelper.hDelete(key,skuId);
     }
 }

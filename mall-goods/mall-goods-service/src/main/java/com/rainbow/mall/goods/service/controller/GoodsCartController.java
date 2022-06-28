@@ -7,13 +7,11 @@ import com.rainbow.mall.goods.service.pojo.request.GoodsCartAddRequest;
 import com.rainbow.mall.goods.service.service.GoodsCartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,6 +34,31 @@ public class GoodsCartController {
         GoodsCartSaveDTO goodsCartAddDTO = goodsCartConvert.convertToGoodsCartAddDTO(request);
         goodsCartService.add(goodsCartAddDTO);
         return Result.success();
+    }
+
+    @ApiOperation(value = "批量删除购物车产品")
+    @DeleteMapping
+    @ApiImplicitParam(name = "request", value = "清空购物车接口入参", required = true)
+    public Result<Void> clean() {
+        goodsCartService.clean();
+        return Result.success();
+    }
+
+    @ApiOperation(value = "删除购物车中的一个或多个产品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "skuIds", value = "sku ids", required = true)
+    })
+    @DeleteMapping(value = "/sku/remove")
+    public Result<Object> delete(String[] skuIds) {
+        goodsCartService.delete(skuIds);
+        return Result.success();
+    }
+
+
+    @ApiOperation(value = "获取购物车数量")
+    @GetMapping("/count")
+    public Result<Integer> cartCount() {
+        return Result.success(goodsCartService.getCartNum());
     }
 
 }

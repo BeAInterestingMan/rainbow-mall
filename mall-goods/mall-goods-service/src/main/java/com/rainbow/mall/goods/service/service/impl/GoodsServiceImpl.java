@@ -27,7 +27,6 @@ import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsDetailBaseDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.goods.GoodsSkuDetailDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuBaseDetailDTO;
 import com.rainbow.mall.goods.service.pojo.dto.service.sku.GoodsSkuSpecDTO;
-import com.rainbow.mall.goods.service.pool.GoodThreadPool;
 import com.rainbow.mall.goods.service.repository.GoodsRepository;
 import com.rainbow.mall.goods.service.service.CategoryService;
 import com.rainbow.mall.goods.service.service.GoodsGalleryService;
@@ -92,7 +91,7 @@ public class GoodsServiceImpl  implements GoodsService {
         return false;
      });
      if(Objects.equals(Boolean.FALSE,execute)){
-          throw new GoodsServiceException(ResultCode.GOODS_ERROR);
+          throw new GoodsServiceException(ResultCode.GOODS_ERROR.message());
      }
     }
 
@@ -255,17 +254,17 @@ public class GoodsServiceImpl  implements GoodsService {
     private void checkGoodsFreight(GoodsBaseDTO goodsBaseDTO) {
         GoodsTypeEnum typeEnum = GoodsTypeEnum.getByValue(goodsBaseDTO.getGoodsType());
         if(Objects.isNull(typeEnum)){
-            throw new GoodsServiceException(ResultCode.GOODS_TYPE_ERROR);
+            throw new GoodsServiceException(ResultCode.GOODS_TYPE_ERROR.message());
         }
         switch (typeEnum) {
             case PHYSICAL_GOODS:
                 if (Objects.equals(0L,goodsBaseDTO.getTemplateId())) {
-                    throw new GoodsServiceException(ResultCode.PHYSICAL_GOODS_NEED_TEMP);
+                    throw new GoodsServiceException(ResultCode.PHYSICAL_GOODS_NEED_TEMP.message());
                 }
                 break;
             case VIRTUAL_GOODS:
                 if (!Objects.equals(0L,goodsBaseDTO.getTemplateId())) {
-                    throw new GoodsServiceException(ResultCode.VIRTUAL_GOODS_NOT_NEED_TEMP);
+                    throw new GoodsServiceException(ResultCode.VIRTUAL_GOODS_NOT_NEED_TEMP.message());
                 }
                 break;
             default:

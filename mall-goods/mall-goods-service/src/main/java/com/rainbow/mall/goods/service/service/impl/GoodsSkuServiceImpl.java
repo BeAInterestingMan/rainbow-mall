@@ -36,7 +36,7 @@ public class GoodsSkuServiceImpl  implements GoodsSkuService {
     @Override
     public void createGoodsSku(GoodsBaseDTO goodsBaseDTO, List<Map<String, Object>> skuList) {
         if(CollectionUtils.isEmpty(skuList)){
-            throw new GoodsServiceException(ResultCode.MUST_HAVE_GOODS_SKU);
+            throw new GoodsServiceException(ResultCode.MUST_HAVE_GOODS_SKU.message());
         }
         insertSkuList(goodsBaseDTO,skuList);
         // TODO 库存服务拆分
