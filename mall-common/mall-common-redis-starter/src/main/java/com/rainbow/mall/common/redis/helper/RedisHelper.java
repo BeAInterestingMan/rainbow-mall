@@ -117,4 +117,7 @@ public class RedisHelper {
         redisTemplate.opsForHash().delete(key1,key2);
     }
 
+    public Object hGet(String key1,String key2) {
+     return   redisTemplate.opsForHash().get(key1,key2);
+    }
 }
