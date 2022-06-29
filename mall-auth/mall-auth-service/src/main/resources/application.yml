@@ -39,7 +39,11 @@ mall:
     version: 1.0
 
 
-
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://localhost:8002/user
 
 logging:
   level:

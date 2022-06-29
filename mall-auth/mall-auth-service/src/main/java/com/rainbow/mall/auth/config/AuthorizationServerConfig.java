@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -40,12 +39,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private UserDetailService userDetailService;
-
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
-        security.allowFormAuthenticationForClients();
-    }
 
     /**
      * @Description 配置获取认证客户端得信息
@@ -74,7 +67,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(userDetailService)
                 // 配置Token存储
                 .tokenStore(tokenStore())
-//                .tokenServices(defaultTokenServices())
+                //refresh_token是否重复使用
+                .reuseRefreshTokens(false)
+                // 配置token策略
+                .tokenServices(defaultTokenServices())
                 // oath2密码模式必须配置
                 .authenticationManager(authenticationManager);
     }
@@ -85,10 +81,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
-        // token有效期自定义设置，30天
-        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 30);
-        // refresh_token 30天
-        tokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 30);
+        tokenServices.setClientDetailsService(redisClientDetailsService);
         return tokenServices;
     }
 
@@ -100,9 +93,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @return org.springframework.security.oauth2.provider.token.TokenStore
      */
     @Bean
+    @Primary
     public TokenStore tokenStore() {
         RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-        redisTokenStore.setAuthenticationKeyGenerator(oAuth2Authentication -> UUID.randomUUID().toString().replace("_",""));
+        // 解决每次生成的 token都一样的问题 TODO
+        redisTokenStore.setAuthenticationKeyGenerator(oAuth2Authentication -> UUID.randomUUID().toString().replace("-",""));
         return redisTokenStore;
     }
 }

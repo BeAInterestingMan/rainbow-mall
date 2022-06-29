@@ -5,20 +5,20 @@ import com.rainbow.mall.security.properties.CloudSecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 /**
  *  @Description 资源服务器统一配置
  *  @author liuhu
  *  @Date 2022/6/29 16:48
  */
-@Component
+@Configuration
 @EnableResourceServer
 @EnableConfigurationProperties(CloudSecurityProperties.class)
 public class CloudResourceServerConfigure extends ResourceServerConfigurerAdapter {
@@ -34,7 +34,7 @@ public class CloudResourceServerConfigure extends ResourceServerConfigurerAdapte
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        String[] anonUrls = StringUtils.isBlank(properties.getAnonUris())?new String[]{}:properties.getAnonUris().split(",");
+        String[] anonUrls = StringUtils.isBlank(properties.getAnonUris()) ? new String[]{} : properties.getAnonUris().split(",");
         http.csrf().disable()
                 .requestMatchers().antMatchers(properties.getAuthUri())
                 .and()

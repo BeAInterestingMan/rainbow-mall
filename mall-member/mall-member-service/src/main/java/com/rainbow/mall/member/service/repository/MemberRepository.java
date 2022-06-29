@@ -1,6 +1,7 @@
 package com.rainbow.mall.member.service.repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rainbow.mall.member.service.mapper.MemberMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class  MemberRepository {
 
     @Autowired
-    private  MemberMapper  memberMapper;
+    private MemberMapper memberMapper;
 	
 }

@@ -1,8 +1,7 @@
 package com.rainbow.mall.member.service.mapper;
 
-import io.renren.modules.generator.entity.MemberNoticeEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.rainbow.mall.member.service.pojo.entity.MemberNotice;
 import org.springframework.stereotype.Repository;
 
 /**
