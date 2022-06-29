@@ -170,6 +170,8 @@
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl.job.version}</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 </project>

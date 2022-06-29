@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.member.service.mapper.MemberCouponMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.member.service.pojo.entity.MemberCoupon" id="memberCouponMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="consumeThreshold" column="consume_threshold"/>
+        <result property="consumptionTime" column="consumption_time"/>
+        <result property="couponId" column="coupon_id"/>
+        <result property="couponType" column="coupon_type"/>
+        <result property="discount" column="discount"/>
+        <result property="endTime" column="end_time"/>
+        <result property="getType" column="get_type"/>
+        <result property="platformFlag" column="platform_flag"/>
+        <result property="memberCouponStatus" column="member_coupon_status"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="price" column="price"/>
+        <result property="scopeId" column="scope_id"/>
+        <result property="scopeType" column="scope_type"/>
+        <result property="storeCommission" column="store_commission"/>
+        <result property="storeId" column="store_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="storeName" column="store_name"/>
+    </resultMap>
+
+
+</mapper>

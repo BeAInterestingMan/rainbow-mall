@@ -32,7 +32,7 @@ public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
                 .requestMatchers().antMatchers(mallAuthProperties.getAuthUrl())
                 .and().authorizeRequests()
                 .antMatchers(anonUrls).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/**").authenticated()
                 .and()
                 .httpBasic();
 

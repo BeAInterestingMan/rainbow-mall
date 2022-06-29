@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.rainbow.mall.security.config.MallResourceSecurityAutoConfig,\
+com.rainbow.mall.security.config.CloudResourceServerConfigure

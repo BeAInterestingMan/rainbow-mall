@@ -19,6 +19,7 @@
         <module>mall-common-datasource-starter</module>
         <module>mall-common-entity</module>
         <module>mall-common-job-starter</module>
+        <module>mall-common-security-starter</module>
     </modules>
 
     <properties>

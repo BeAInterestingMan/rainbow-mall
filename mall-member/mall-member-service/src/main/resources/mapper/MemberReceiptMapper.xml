@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.member.service.mapper.MemberReceiptMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.member.service.pojo.entity.MemberReceipt" id="memberReceiptMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="receiptContent" column="receipt_content"/>
+        <result property="receiptTitle" column="receipt_title"/>
+        <result property="receiptType" column="receipt_type"/>
+        <result property="taxpayerId" column="taxpayer_id"/>
+    </resultMap>
+
+
+</mapper>

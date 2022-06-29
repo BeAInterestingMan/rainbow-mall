@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainbow.mall.member.service.mapper.MemberAddressMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rainbow.mall.member.service.pojo.entity.MemberAddress" id="memberAddressMap">
+        <result property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="alias" column="alias"/>
+        <result property="consigneeAddressIdPath" column="consignee_address_id_path"/>
+        <result property="consigneeAddressPath" column="consignee_address_path"/>
+        <result property="detail" column="detail"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="lat" column="lat"/>
+        <result property="lon" column="lon"/>
+        <result property="memberId" column="member_id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+
+</mapper>
